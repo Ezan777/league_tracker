@@ -19,10 +19,18 @@ class _SearchBarState extends State<SearchBar> {
   @override
   Widget build(BuildContext context) {
     return Row(children: <Widget>[
+      const SizedBox(width: 10),
       RegionButton(model: widget._model),
+      const SizedBox(width: 15,),
       SizedBox(
-        width: 100,
-        child: TextField(onSubmitted: _submitted,),
+        width: 320,
+        child: TextField(
+          decoration: const InputDecoration(
+            labelText: "Summoner's name",
+            border: OutlineInputBorder(),
+          ),
+          onSubmitted: _submitted,
+        ),
       )
     ],);
   }
