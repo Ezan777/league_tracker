@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:league_tracker/region_button.dart';
+import 'package:league_tracker/search_bar.dart';
 import 'package:league_tracker/search_model.dart';
 
 void main() {
@@ -44,7 +45,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -55,9 +55,20 @@ class _MyHomePageState extends State<MyHomePage> {
     // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Lol tracker"),
-        leading: RegionButton(model: widget._model,),
+        leading: RegionButton(model: widget._model),
+        actions: [
+          SizedBox(
+            width: 340,
+            child: TextField(
+              onSubmitted: (String text) {widget._model.setSearchedText(text: text);},),
+          )
+        ],
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(//top: Radius.circular(100),
+              bottom: Radius.circular(8)),
+        ),
       ),
+      body: Center(child: Text(widget._model.searchedText())),
     );
   }
 }
