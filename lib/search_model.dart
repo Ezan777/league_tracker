@@ -1,19 +1,23 @@
-class SearchModel {
-  String _searchedText, _region;
+import 'package:league_tracker/region_button.dart';
 
-  SearchModel(): _searchedText = '', _region = '';
+class SearchModel {
+  String _searchedText;
+  LolServers _server;
+
+  SearchModel(): _searchedText = '', _server = LolServers.euw1;
 
   void setSearchedText({required String text}) {
     _searchedText = text;
   }
-  void setRegion({required String region}) {
-    _region = region;
+  void setServer({required LolServers server}) {
+    _server = server;
   }
 
   String searchedText() {
     return _searchedText;
   }
-  String region() {
-    return _region;
+
+  LolServers server() {
+    return _server;
   }
 }

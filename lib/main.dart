@@ -58,7 +58,6 @@ class _MyHomePageState extends State<MyHomePage> {
         title: const Text("Lol tracker"),
         leading: RegionButton(model: widget._model,),
       ),
-      body: Center(child: Text(widget._model.region()),),
     );
   }
 }

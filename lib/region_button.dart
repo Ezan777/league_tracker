@@ -4,6 +4,11 @@ import 'package:league_tracker/search_model.dart';
 enum LolServers {na1, euw1, eun1, kr, br1, jp1, ru1, oce, tr1, la1, la2}
 
 extension on LolServers {
+  /// Returns the string corresponding to the abbreviation of the server's name
+  /// used by riot games.
+  ///
+  /// For example if the server is EUW it returns euw1, if the server is NA it
+  /// returns na1
   String toServerString() {
     return toString().split('.').last;
   }
@@ -21,13 +26,15 @@ class RegionButton extends StatefulWidget {
 
 class _RegionButtonState extends State<RegionButton> {
 
-  /*final Map<String, String> _regions = {"NA": "na1", "EUW": "euw1", "EUN": "eun1",
-    "KR": "kr",  "BR": "br1", "JP": "jp1", "RU": "ru1", "OCE": "oce",
-    "TR": "tr1", "LAN": "la1", "LAS": "la2"};*/
+  final Map<LolServers, String> _serverRegion = {
+    LolServers.na1: "NA", LolServers.euw1: "EUW", LolServers.eun1: "EUN",
+    LolServers.kr: "KR", LolServers.br1: "BR", LolServers.jp1: "JP", LolServers.ru1: "RU",
+    LolServers.oce: "OCE", LolServers.tr1: "TR", LolServers.la1: "LAN", LolServers.la2: "LAS"
+  };
 
   void _select(LolServers selectedServer) {
-    widget._model.setRegion(region: selectedServer.toServerString());
-
+    widget._model.setServer(server: selectedServer);
+    setState((){});
   }
 
   @override
@@ -45,6 +52,7 @@ class _RegionButtonState extends State<RegionButton> {
       const PopupMenuItem(value: LolServers.la1, child: Text("LAN")),
       const PopupMenuItem(value: LolServers.la2, child: Text("LAS")),
     ],
-    onSelected: _select,);
+    onSelected: _select,
+    icon: Text(_serverRegion[widget._model.server()]!),);
   }
 }
