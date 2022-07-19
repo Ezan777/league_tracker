@@ -62,16 +62,21 @@ class _RegionButtonState extends State<RegionButton> {
         const PopupMenuItem(value: LolServers.la2, child: Text("LAS")),
       ],
       onSelected: _select,
-      //icon: Text(_serverRegion[widget._model.server()]!),
-      child: Container(
-        color: Theme.of(context).buttonTheme.colorScheme!.background,
-        height: 40,
-        width: 55,
-        child: Center(
-          child: Text(_serverRegion[widget._model.server()]!,
-              style: Theme.of(context).textTheme.bodyLarge),
-        ),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(9)),
       ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(8),
+        child: Container(
+          color: Theme.of(context).buttonTheme.colorScheme!.background,
+          height: 40,
+          width: 55,
+          child: Center(
+            child: Text(_serverRegion[widget._model.server()]!,
+                style: Theme.of(context).textTheme.bodyLarge),
+          ),
+        ),
+      )
     );
   }
 }
