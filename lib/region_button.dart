@@ -3,7 +3,7 @@ import 'package:league_tracker/search_model.dart';
 
 enum LolServers { na1, euw1, eun1, kr, br1, jp1, ru1, oce, tr1, la1, la2 }
 
-extension on LolServers {
+/*extension on LolServers {
   /// Returns the string corresponding to the abbreviation of the server's name
   /// used by riot games.
   ///
@@ -12,7 +12,7 @@ extension on LolServers {
   String toServerString() {
     return toString().split('.').last;
   }
-}
+}*/
 
 class RegionButton extends StatefulWidget {
   final SearchModel _model;
@@ -65,6 +65,7 @@ class _RegionButtonState extends State<RegionButton> {
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(9)),
       ),
+      color: Theme.of(context).popupMenuTheme.color,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(8),
         child: Container(

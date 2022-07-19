@@ -29,6 +29,11 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.green,
       ),
+      darkTheme: ThemeData(
+        primarySwatch: Colors.green,
+        brightness: Brightness.dark,
+      ),
+      themeMode: ThemeMode.light,
       home: MyHomePage(model: _model),
     );
   }
