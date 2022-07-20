@@ -36,15 +36,16 @@ class _SummonerInfoState extends State<SummonerInfo> {
         return Padding(
           padding: const EdgeInsets.all(20),
           child: Container(
-            width: 90,
-            height: 90,
+            width: 110,
+            height: 110,
             decoration: const BoxDecoration(
               shape: BoxShape.circle,
               color: Colors.black,
             ),
             child: ClipOval(
               child: Image.asset(
-                  'assets/images/profile_icon/${widget.model.summoner.iconId()}.png',),
+                'assets/images/profile_icon/${widget.model.summoner.iconId()}.png',
+              ),
             ),
           ),
         );
@@ -57,7 +58,7 @@ class _SummonerInfoState extends State<SummonerInfo> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              width: 0.65 * MediaQuery.of(context).size.width,
+              width: 0.55 * MediaQuery.of(context).size.width,
               height: 24,
               decoration: BoxDecoration(
                 color: Colors.black,
@@ -68,7 +69,7 @@ class _SummonerInfoState extends State<SummonerInfo> {
               height: 10,
             ),
             Container(
-              width: 0.25 * MediaQuery.of(context).size.width,
+              width: 0.23 * MediaQuery.of(context).size.width,
               height: 18,
               decoration: BoxDecoration(
                 color: Colors.black,
@@ -81,15 +82,21 @@ class _SummonerInfoState extends State<SummonerInfo> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              "${widget.model.summoner.summonerName()[0].toUpperCase()}${widget.model.summoner.summonerName().substring(1)}",
-              style: Theme.of(context).textTheme.headline3!.copyWith(
-                  fontSize: 40,
-                  fontWeight: FontWeight.bold,
-                  color: MediaQuery.of(context).platformBrightness ==
+            Container(
+              constraints: BoxConstraints(maxWidth: 0.61 * MediaQuery.of(context).size.width),
+              child: FittedBox(
+                fit: BoxFit.fitWidth,
+                child: Text(
+                  "${widget.model.summoner.summonerName()[0].toUpperCase()}${widget.model.summoner.summonerName().substring(1)}",
+                  style: Theme.of(context).textTheme.headline3!.copyWith(
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold,
+                      color: MediaQuery.of(context).platformBrightness ==
                           Brightness.dark
-                      ? Theme.of(context).textTheme.headline3!.color
-                      : Theme.of(context).primaryColor),
+                          ? Theme.of(context).textTheme.headline3!.color
+                          : Theme.of(context).primaryColor),
+                ),
+              ),
             ),
             const SizedBox(
               height: 10,
