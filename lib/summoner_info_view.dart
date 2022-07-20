@@ -1,4 +1,4 @@
-import 'package:darthus/darthus.dart';
+//import 'package:darthus/darthus.dart';
 import 'package:flutter/material.dart';
 
 class SummonerInfo extends StatefulWidget {
@@ -13,7 +13,7 @@ class SummonerInfo extends StatefulWidget {
 class _SummonerInfoState extends State<SummonerInfo> {
   @override
   Widget build(BuildContext context) {
-    final Summoner summoner;
+    //final Summoner summoner;
 
     Widget _buildSummonerIcon() {
       return Padding(
