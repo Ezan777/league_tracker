@@ -24,8 +24,8 @@ class _SummonerInfoState extends State<SummonerInfo> {
         return Padding(
           padding: const EdgeInsets.all(20),
           child: Container(
-            width: 90,
-            height: 90,
+            width: 110,
+            height: 110,
             decoration: const BoxDecoration(
               shape: BoxShape.circle,
               color: Colors.black,
@@ -54,6 +54,7 @@ class _SummonerInfoState extends State<SummonerInfo> {
     Widget _buildText() {
       if (widget.isLoading.value) {
         return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
               width: 0.65 * MediaQuery.of(context).size.width,
@@ -77,31 +78,40 @@ class _SummonerInfoState extends State<SummonerInfo> {
           ],
         );
       } else {
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8),
-          child: Column(
-            children: [
-              Text(
-                  "${widget.model.summoner.summonerName()[0].toUpperCase()}${widget.model.summoner.summonerName().substring(1)}"),
-              const SizedBox(
-                height: 10,
-              ),
-              Text("Level: ${widget.model.summoner.summonerLevel()}"),
-            ],
-          ),
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "${widget.model.summoner.summonerName()[0].toUpperCase()}${widget.model.summoner.summonerName().substring(1)}",
+              style: Theme.of(context).textTheme.headline3!.copyWith(
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).primaryColor),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Text(
+              "Level: ${widget.model.summoner.summonerLevel()}",
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineSmall!
+                  .copyWith(fontSize: 20),
+            ),
+          ],
         );
       }
     }
 
     Widget _buildView() {
       if (widget.model.isSummonerInitialized) {
-        return Center(
-          child: Row(
-            children: <Widget>[
-              _buildSummonerIcon(),
-              _buildText(),
-            ],
-          ),
+        return Row(
+          children: <Widget>[
+            Center(
+              child: _buildSummonerIcon(),
+            ),
+            _buildText(),
+          ],
         );
       } else {
         return const SizedBox();
