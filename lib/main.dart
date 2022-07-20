@@ -33,12 +33,13 @@ class MyApp extends StatelessWidget {
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
         primarySwatch: Colors.green,
+        brightness: Brightness.light,
       ),
       darkTheme: ThemeData(
         primarySwatch: Colors.green,
         brightness: Brightness.dark,
       ),
-      themeMode: ThemeMode.light,
+      themeMode: ThemeMode.system,
       home: MyHomePage(model: _model),
     );
   }
@@ -51,11 +52,27 @@ class MyHomePage extends StatefulWidget {
       : _model = model,
         super(key: key);
 
-  final _shimmerGradient = const LinearGradient(
+  final _shimmerGradientLight = const LinearGradient(
     colors: [
       Color(0xFFEBEBF4),
       Color(0xFFF4F4F4),
       Color(0xFFEBEBF4),
+    ],
+    stops: [
+      0.1,
+      0.3,
+      0.4,
+    ],
+    begin: Alignment(-1.0, -0.3),
+    end: Alignment(1.0, 0.3),
+    tileMode: TileMode.clamp,
+  );
+
+  final _shimmerGradientDark = const LinearGradient(
+    colors: [
+      Color(0xFF6C6C72),
+      Color(0xFF8F8C8C),
+      Color(0xFF949498),
     ],
     stops: [
       0.1,
@@ -72,7 +89,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String _title = "League Tracker";
+  String _title = "League tracker";
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Shimmer(
-      linearGradient: widget._shimmerGradient,
+      linearGradient: MediaQuery.of(context).platformBrightness == Brightness.dark ? widget._shimmerGradientDark : widget._shimmerGradientLight,
       child: Scaffold(
         appBar: AppBar(
           title: Text(_title),

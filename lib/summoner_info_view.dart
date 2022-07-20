@@ -23,7 +23,7 @@ class _SummonerInfoState extends State<SummonerInfo> {
           height: 90,
           decoration: const BoxDecoration(
             shape: BoxShape.circle,
-            color: Colors.grey,
+            color: Colors.black,
           ),
           child: ClipOval(
             child: Image.asset('assets/images/profile_icon/4597.png'),
