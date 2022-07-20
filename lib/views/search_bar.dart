@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:league_tracker/region_button.dart';
-import 'package:league_tracker/search_model.dart';
+import 'package:league_tracker/views/region_button.dart';
+import 'package:league_tracker/models/search_model.dart';
 
 class SearchBar extends StatefulWidget {
   final SearchModel _model;

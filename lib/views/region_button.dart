@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:league_tracker/search_model.dart';
+import 'package:league_tracker/models/search_model.dart';
 
 enum LolServers { na1, euw1, eun1, kr, br1, jp1, ru1, oce, tr1, la1, la2 }
 

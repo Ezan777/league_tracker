@@ -1,4 +1,4 @@
-import 'package:league_tracker/region_button.dart';
+import 'package:league_tracker/views/region_button.dart';
 
 class SearchModel {
   String _searchedText;

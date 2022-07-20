@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:league_tracker/search_bar.dart';
-import 'package:league_tracker/search_model.dart';
+import 'package:league_tracker/views/search_bar.dart';
+import 'package:league_tracker/models/search_model.dart';
 import 'package:league_tracker/animated_shimmer/shimmer.dart';
 import 'package:league_tracker/animated_shimmer/shimmer_loading.dart';
-import 'package:league_tracker/summoner_info_view.dart';
+import 'package:league_tracker/views/summoner_info_view.dart';
 
 void main() {
   final SearchModel model = SearchModel();
