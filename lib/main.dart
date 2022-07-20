@@ -120,6 +120,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     isLoading: _model.isLoading,
                     child: SummonerInfo(
                       isLoading: _model.isLoading,
+                      model: _model,
                     ),
                   );
                 }),

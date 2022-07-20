@@ -1,10 +1,14 @@
 //import 'package:darthus/darthus.dart';
 import 'package:flutter/material.dart';
 
+import '../models/model.dart';
+
 class SummonerInfo extends StatefulWidget {
   final ValueNotifier<bool> isLoading;
+  final Model model;
 
-  const SummonerInfo({Key? key, required this.isLoading}) : super(key: key);
+  const SummonerInfo({Key? key, required this.isLoading, required this.model})
+      : super(key: key);
 
   @override
   State<SummonerInfo> createState() => _SummonerInfoState();
@@ -16,24 +20,39 @@ class _SummonerInfoState extends State<SummonerInfo> {
     //final Summoner summoner;
 
     Widget _buildSummonerIcon() {
-      return Padding(
-        padding: const EdgeInsets.all(20),
-        child: Container(
-          width: 90,
-          height: 90,
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-            color: Colors.black,
+      if (widget.isLoading.value) {
+        return Padding(
+          padding: const EdgeInsets.all(20),
+          child: Container(
+            width: 90,
+            height: 90,
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.black,
+            ),
           ),
-          child: ClipOval(
-            child: Image.asset('assets/images/profile_icon/4597.png'),
+        );
+      } else {
+        return Padding(
+          padding: const EdgeInsets.all(20),
+          child: Container(
+            width: 90,
+            height: 90,
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.black,
+            ),
+            child: ClipOval(
+              child: Image.asset(
+                  'assets/images/profile_icon/${widget.model.summoner.iconId()}.png'),
+            ),
           ),
-        ),
-      );
+        );
+      }
     }
 
     Widget _buildText() {
-      if(widget.isLoading.value) {
+      if (widget.isLoading.value) {
         return Column(
           children: [
             Container(
@@ -44,7 +63,9 @@ class _SummonerInfoState extends State<SummonerInfo> {
                 borderRadius: BorderRadius.circular(16),
               ),
             ),
-            const SizedBox(height: 10,),
+            const SizedBox(
+              height: 10,
+            ),
             Container(
               width: 0.25 * MediaQuery.of(context).size.width,
               height: 18,
@@ -59,25 +80,34 @@ class _SummonerInfoState extends State<SummonerInfo> {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8),
           child: Column(
-            children: const [
-              Text("Summoner name"),
-              SizedBox(height: 10,),
-              Text("Summoner level"),
+            children: [
+              Text(
+                  "${widget.model.summoner.summonerName()[0].toUpperCase()}${widget.model.summoner.summonerName().substring(1)}"),
+              const SizedBox(
+                height: 10,
+              ),
+              Text("Level: ${widget.model.summoner.summonerLevel()}"),
             ],
           ),
         );
       }
     }
 
-    return Container(
-      child: Center(
-        child: Row(
-          children: <Widget>[
-            _buildSummonerIcon(),
-            _buildText(),
-          ],
-        ),
-      ),
-    );
+    Widget _buildView() {
+      if (widget.model.isSummonerInitialized) {
+        return Center(
+          child: Row(
+            children: <Widget>[
+              _buildSummonerIcon(),
+              _buildText(),
+            ],
+          ),
+        );
+      } else {
+        return const SizedBox();
+      }
+    }
+
+    return _buildView();
   }
 }
