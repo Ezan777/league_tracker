@@ -16,11 +16,8 @@ class Model {
 
   void buildSummoner() async {
     isLoading.value = true;
-    await Future.delayed(Duration(seconds: 3));
-    /*summoner = Summoner('euw1'*//*server.toString().split('.').last*//*, 'zan777');
+    summoner = Summoner(server.toString().split('.').last, searchedText);
     await summoner.buildSummoner();
-    await summoner.getMatches(numberOfMatches: 7);
-    await summoner.buildAllMatches();*/
     isLoading.value = false;
   }
 }

@@ -82,7 +82,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final Model _model = Model();
   ValueNotifier<bool> isLoading = ValueNotifier<bool>(false);
-  String _title = "League tracker";
+  String _title = "League Tracker";
 
   @override
   Widget build(BuildContext context) {
