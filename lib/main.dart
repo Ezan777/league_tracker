@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:league_tracker/search_bar.dart';
 import 'package:league_tracker/search_model.dart';
+import 'package:league_tracker/animated_shimmer/shimmer.dart';
+import 'package:league_tracker/animated_shimmer/shimmer_loading.dart';
+import 'package:league_tracker/summoner_info_view.dart';
 
 void main() {
   final SearchModel model = SearchModel();
@@ -10,7 +13,9 @@ void main() {
 class MyApp extends StatelessWidget {
   final SearchModel _model;
 
-  const MyApp({Key? key, required SearchModel model}) : _model = model, super(key: key);
+  const MyApp({Key? key, required SearchModel model})
+      : _model = model,
+        super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -42,7 +47,25 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   final SearchModel _model;
 
-  const MyHomePage({Key? key, required SearchModel model}) : _model = model, super(key: key);
+  const MyHomePage({Key? key, required SearchModel model})
+      : _model = model,
+        super(key: key);
+
+  final _shimmerGradient = const LinearGradient(
+    colors: [
+      Color(0xFFEBEBF4),
+      Color(0xFFF4F4F4),
+      Color(0xFFEBEBF4),
+    ],
+    stops: [
+      0.1,
+      0.3,
+      0.4,
+    ],
+    begin: Alignment(-1.0, -0.3),
+    end: Alignment(1.0, 0.3),
+    tileMode: TileMode.clamp,
+  );
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -59,15 +82,30 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(_title),
-      ),
-      body: Column(
-        children: [
-          const SizedBox(height: 20),
-          SearchBar(model: widget._model),
-        ],
+    return Shimmer(
+      linearGradient: widget._shimmerGradient,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(_title),
+        ),
+        body: Column(
+          children: [
+            const SizedBox(height: 20),
+            SearchBar(model: widget._model),
+            const SizedBox(height: 22),
+            Container(
+              color: Theme
+                  .of(context)
+                  .textTheme
+                  .bodyLarge!
+                  .color, width: MediaQuery
+                .of(context)
+                .size
+                .width, height: 1,),
+            ShimmerLoading(
+              isLoading: true, child: SummonerInfo(isLoading: true,),),
+          ],
+        ),
       ),
     );
   }
