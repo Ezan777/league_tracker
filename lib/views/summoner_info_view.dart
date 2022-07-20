@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 class SummonerInfo extends StatefulWidget {
-  final bool isLoading;
+  final ValueNotifier<bool> isLoading;
 
   const SummonerInfo({Key? key, required this.isLoading}) : super(key: key);
 
@@ -33,7 +33,7 @@ class _SummonerInfoState extends State<SummonerInfo> {
     }
 
     Widget _buildText() {
-      if(widget.isLoading) {
+      if(widget.isLoading.value) {
         return Column(
           children: [
             Container(

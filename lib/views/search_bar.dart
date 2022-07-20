@@ -14,6 +14,7 @@ class SearchBar extends StatefulWidget {
 class _SearchBarState extends State<SearchBar> {
   void _submitted(String text) {
     widget._model.searchedText = text;
+    widget._model.buildSummoner();
   }
 
   @override

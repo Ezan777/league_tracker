@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:league_tracker/animated_shimmer/shimmer.dart';
 
 class ShimmerLoading extends StatefulWidget {
-  final bool isLoading;
+  final ValueNotifier<bool> isLoading;
   final Widget child;
 
   const ShimmerLoading(
@@ -35,7 +35,7 @@ class _ShimmerLoadingState extends State<ShimmerLoading> {
   }
 
   void _onShimmerChange() {
-    if (widget.isLoading) {
+    if (widget.isLoading.value) {
       setState(() {
         // update the shimmer painting.
       });
@@ -44,7 +44,7 @@ class _ShimmerLoadingState extends State<ShimmerLoading> {
 
   @override
   Widget build(BuildContext context) {
-    if(!widget.isLoading) {
+    if(!widget.isLoading.value) {
       return widget.child;
     }
 

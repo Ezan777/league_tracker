@@ -41,7 +41,6 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-
   const MyHomePage({Key? key}) : super(key: key);
 
   final _shimmerGradientLight = const LinearGradient(
@@ -82,6 +81,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final Model _model = Model();
+  ValueNotifier<bool> isLoading = ValueNotifier<bool>(false);
   String _title = "League tracker";
 
   @override
@@ -92,6 +92,8 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
+    _model.isLoading = isLoading;
+
     return Shimmer(
       linearGradient:
           MediaQuery.of(context).platformBrightness == Brightness.dark
@@ -111,12 +113,16 @@ class _MyHomePageState extends State<MyHomePage> {
               width: MediaQuery.of(context).size.width,
               height: 1,
             ),
-            ShimmerLoading(
-              isLoading: true,
-              child: SummonerInfo(
-                isLoading: true,
-              ),
-            ),
+            AnimatedBuilder(
+                animation: _model.isLoading,
+                builder: (BuildContext context, Widget? child) {
+                  return ShimmerLoading(
+                    isLoading: _model.isLoading,
+                    child: SummonerInfo(
+                      isLoading: _model.isLoading,
+                    ),
+                  );
+                }),
           ],
         ),
       ),
