@@ -1,23 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:league_tracker/models/search_model.dart';
+import 'package:league_tracker/models/model.dart';
 
 enum LolServers { na1, euw1, eun1, kr, br1, jp1, ru1, oce, tr1, la1, la2 }
 
-/*extension on LolServers {
-  /// Returns the string corresponding to the abbreviation of the server's name
-  /// used by riot games.
-  ///
-  /// For example if the server is EUW it returns euw1, if the server is NA it
-  /// returns na1
-  String toServerString() {
-    return toString().split('.').last;
-  }
-}*/
-
 class RegionButton extends StatefulWidget {
-  final SearchModel _model;
+  final Model _model;
 
-  const RegionButton({Key? key, required SearchModel model})
+  const RegionButton({Key? key, required Model model})
       : _model = model,
         super(key: key);
 
@@ -41,7 +30,7 @@ class _RegionButtonState extends State<RegionButton> {
   };
 
   void _select(LolServers selectedServer) {
-    widget._model.setServer(server: selectedServer);
+    widget._model.server = selectedServer;
     setState(() {});
   }
 
@@ -73,7 +62,7 @@ class _RegionButtonState extends State<RegionButton> {
           height: 40,
           width: 55,
           child: Center(
-            child: Text(_serverRegion[widget._model.server()]!,
+            child: Text(_serverRegion[widget._model.server]!,
                 style: Theme.of(context).textTheme.bodyLarge),
           ),
         ),

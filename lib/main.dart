@@ -1,21 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:league_tracker/views/search_bar.dart';
-import 'package:league_tracker/models/search_model.dart';
+import 'package:league_tracker/models/model.dart';
 import 'package:league_tracker/animated_shimmer/shimmer.dart';
 import 'package:league_tracker/animated_shimmer/shimmer_loading.dart';
 import 'package:league_tracker/views/summoner_info_view.dart';
 
 void main() {
-  final SearchModel model = SearchModel();
-  runApp(MyApp(model: model));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  final SearchModel _model;
-
-  const MyApp({Key? key, required SearchModel model})
-      : _model = model,
-        super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -40,17 +35,14 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.dark,
       ),
       themeMode: ThemeMode.system,
-      home: MyHomePage(model: _model),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  final SearchModel _model;
 
-  const MyHomePage({Key? key, required SearchModel model})
-      : _model = model,
-        super(key: key);
+  const MyHomePage({Key? key}) : super(key: key);
 
   final _shimmerGradientLight = const LinearGradient(
     colors: [
@@ -89,6 +81,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final Model _model = Model();
   String _title = "League tracker";
 
   @override
@@ -100,7 +93,10 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Shimmer(
-      linearGradient: MediaQuery.of(context).platformBrightness == Brightness.dark ? widget._shimmerGradientDark : widget._shimmerGradientLight,
+      linearGradient:
+          MediaQuery.of(context).platformBrightness == Brightness.dark
+              ? widget._shimmerGradientDark
+              : widget._shimmerGradientLight,
       child: Scaffold(
         appBar: AppBar(
           title: Text(_title),
@@ -108,19 +104,19 @@ class _MyHomePageState extends State<MyHomePage> {
         body: Column(
           children: [
             const SizedBox(height: 20),
-            SearchBar(model: widget._model),
+            SearchBar(model: _model),
             const SizedBox(height: 22),
             Container(
-              color: Theme
-                  .of(context)
-                  .textTheme
-                  .bodyLarge!
-                  .color, width: MediaQuery
-                .of(context)
-                .size
-                .width, height: 1,),
+              color: Theme.of(context).textTheme.bodyLarge!.color,
+              width: MediaQuery.of(context).size.width,
+              height: 1,
+            ),
             ShimmerLoading(
-              isLoading: true, child: SummonerInfo(isLoading: true,),),
+              isLoading: true,
+              child: SummonerInfo(
+                isLoading: true,
+              ),
+            ),
           ],
         ),
       ),

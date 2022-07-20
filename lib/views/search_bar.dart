@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:league_tracker/views/region_button.dart';
-import 'package:league_tracker/models/search_model.dart';
+import 'package:league_tracker/models/model.dart';
 
 class SearchBar extends StatefulWidget {
-  final SearchModel _model;
+  final Model _model;
 
-  const SearchBar({Key? key, required SearchModel model}) : _model = model, super(key: key);
+  const SearchBar({Key? key, required Model model}) : _model = model, super(key: key);
 
   @override
   State<SearchBar> createState() => _SearchBarState();
@@ -13,7 +13,7 @@ class SearchBar extends StatefulWidget {
 
 class _SearchBarState extends State<SearchBar> {
   void _submitted(String text) {
-    widget._model.setSearchedText(text: text);
+    widget._model.searchedText = text;
   }
 
   @override
