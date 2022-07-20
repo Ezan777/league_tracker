@@ -44,7 +44,7 @@ class _SummonerInfoState extends State<SummonerInfo> {
             ),
             child: ClipOval(
               child: Image.asset(
-                  'assets/images/profile_icon/${widget.model.summoner.iconId()}.png'),
+                  'assets/images/profile_icon/${widget.model.summoner.iconId()}.png',),
             ),
           ),
         );
@@ -86,7 +86,10 @@ class _SummonerInfoState extends State<SummonerInfo> {
               style: Theme.of(context).textTheme.headline3!.copyWith(
                   fontSize: 40,
                   fontWeight: FontWeight.bold,
-                  color: Theme.of(context).primaryColor),
+                  color: MediaQuery.of(context).platformBrightness ==
+                          Brightness.dark
+                      ? Theme.of(context).textTheme.headline3!.color
+                      : Theme.of(context).primaryColor),
             ),
             const SizedBox(
               height: 10,
