@@ -37,7 +37,11 @@ class _SummonerInfoState extends State<SummonerInfo> {
           child: Container(
             width: 110,
             height: 110,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: Theme.of(context).primaryColor,
+                width: 2,
+              ),
               shape: BoxShape.circle,
               color: Colors.black,
             ),
