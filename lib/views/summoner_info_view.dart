@@ -115,13 +115,17 @@ class _SummonerInfoState extends State<SummonerInfo> {
     Widget _buildRankedInfo() {
       Color rankedTextColor = Theme.of(context).primaryColor;
       Widget rankedText = const Text("");
-      final double rankMaxWidth = 0.65 * MediaQuery.of(context).size.width;
+      Widget lpText = const Text("");
+      final double rankMaxWidth = 1 * MediaQuery.of(context).size.width;
 
       if (!widget.model.isLoading.value) {
         String tierString =
             "${widget.model.summoner.rankSoloDuo != null ? widget.model.summoner.rankSoloDuo!.tier.toUpperCase() : "UNRANKED"} ";
         String rankString = widget.model.summoner.rankSoloDuo != null
-            ? widget.model.summoner.rankSoloDuo!.rank
+            ? " ${widget.model.summoner.rankSoloDuo!.rank}"
+            : "";
+        String lpString = widget.model.summoner.rankSoloDuo != null
+            ? "${widget.model.summoner.rankSoloDuo!.lp} LP"
             : "";
         if (widget.model.summoner.rankSoloDuo != null) {
           switch (widget.model.summoner.rankSoloDuo!.tier.toLowerCase()) {
@@ -176,11 +180,19 @@ class _SummonerInfoState extends State<SummonerInfo> {
         }
 
         rankedText = Text(
-          "$tierString $rankString",
+          "$tierString$rankString: ",
           style: Theme.of(context).textTheme.headline3!.copyWith(
                 fontWeight: FontWeight.bold,
                 color: rankedTextColor,
               ),
+        );
+
+        lpText = Text(
+          lpString,
+          style: Theme.of(context).textTheme.headline3!.copyWith(
+            fontWeight: FontWeight.bold,
+            color: rankedTextColor,
+          ),
         );
 
         return Row(
@@ -191,9 +203,15 @@ class _SummonerInfoState extends State<SummonerInfo> {
                   padding: const EdgeInsets.all(20),
                   child: FittedBox(
                     fit: BoxFit.fitWidth,
-                    child: rankedText,
+                    child: Row(
+                      children: [
+                        rankedText,
+                        lpText
+                      ],
+                    ),
                   ),
-                )),
+                )
+            ),
           ],
         );
       } else {
@@ -202,11 +220,11 @@ class _SummonerInfoState extends State<SummonerInfo> {
             Padding(
               padding: const EdgeInsets.all(20),
               child: Container(
-                width: rankMaxWidth,
+                width: 0.80 * rankMaxWidth,
                 height: 40,
                 decoration: BoxDecoration(
                   color: Colors.black,
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius: BorderRadius.circular(15),
                 ),
               ),
             ),
