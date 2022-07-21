@@ -224,7 +224,8 @@ class _SummonerInfoState extends State<SummonerInfo> {
                 ),
               ),
             ),
-            Container(
+            widget.model.summoner.rankSoloDuo != null
+            ? Container(
               constraints: BoxConstraints(maxWidth: 0.50 * rankMaxWidth),
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 10),
@@ -234,6 +235,7 @@ class _SummonerInfoState extends State<SummonerInfo> {
                 ),
               ),
             )
+                : const SizedBox(),
           ],
         );
       } else {
