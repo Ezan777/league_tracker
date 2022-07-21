@@ -1,4 +1,3 @@
-//import 'package:darthus/darthus.dart';
 import 'package:flutter/material.dart';
 import 'package:league_tracker/animated_shimmer/shimmer_loading.dart';
 
@@ -117,7 +116,7 @@ class _SummonerInfoState extends State<SummonerInfo> {
     Widget _buildRankedInfo() {
       Color rankedTextColor = Theme.of(context).primaryColor;
       Widget rankedText = const Text("");
-      Widget lpText = const Text("");
+      Widget lpText = const Text(""), winRateText = const Text("");
       final double rankMaxWidth = widget.parentConstraints != null ? 0.90 * widget.parentConstraints!.maxWidth : MediaQuery.of(context).size.width;
 
       if (!widget.model.isLoading.value) {
@@ -197,32 +196,71 @@ class _SummonerInfoState extends State<SummonerInfo> {
               ),
         );
 
-        return Container(
-          constraints: BoxConstraints(maxWidth: rankMaxWidth),
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: FittedBox(
-              fit: BoxFit.fitWidth,
-              child: Row(
-                children: [rankedText, lpText],
-              ),
-            ),
-          ),
+        winRateText = Text(
+          "Win rate: ${widget.model.summoner.rankSoloDuo != null
+          ? widget.model.summoner.rankSoloDuo!.winPercentage.toString()
+          : ""}%",
+          style: Theme.of(context)
+              .textTheme
+              .headlineSmall!
+              .copyWith(fontSize: 20, color: rankedTextColor),
         );
-      } else {
-        return Row(
+
+        return Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: Container(
-                width: 0.99 * rankMaxWidth,
-                height: 40,
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(15),
+            Container(
+              constraints: BoxConstraints(maxWidth: rankMaxWidth),
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: FittedBox(
+                  fit: BoxFit.fitWidth,
+                  child: Row(
+                    children: [rankedText, lpText],
+                  ),
                 ),
               ),
             ),
+            Container(
+              constraints: BoxConstraints(maxWidth: 0.50 * rankMaxWidth),
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: FittedBox(
+                  fit:  BoxFit.fitWidth,
+                  child: winRateText,
+                ),
+              ),
+            )
+          ],
+        );
+      } else {
+        return Column(
+          children: [
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Container(
+                    width: 0.99 * rankMaxWidth,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: Container(
+                width: 0.50 * rankMaxWidth,
+                height: 25,
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(25),
+                ),
+              ),
+            )
           ],
         );
       }
