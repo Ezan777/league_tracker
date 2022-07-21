@@ -1,13 +1,15 @@
 //import 'package:darthus/darthus.dart';
 import 'package:flutter/material.dart';
+import 'package:league_tracker/animated_shimmer/shimmer_loading.dart';
 
 import '../models/model.dart';
 
 class SummonerInfo extends StatefulWidget {
   final ValueNotifier<bool> isLoading;
   final Model model;
+  final BoxConstraints? parentConstraints;
 
-  const SummonerInfo({Key? key, required this.isLoading, required this.model})
+  const SummonerInfo({Key? key, required this.isLoading, required this.model, this.parentConstraints})
       : super(key: key);
 
   @override
@@ -56,7 +58,7 @@ class _SummonerInfoState extends State<SummonerInfo> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              width: 0.55 * MediaQuery.of(context).size.width,
+              width: widget.parentConstraints != null ? 0.55 * widget.parentConstraints!.maxWidth : 0.55 * MediaQuery.of(context).size.width,
               height: 24,
               decoration: BoxDecoration(
                 color: Colors.black,
@@ -67,7 +69,7 @@ class _SummonerInfoState extends State<SummonerInfo> {
               height: 10,
             ),
             Container(
-              width: 0.23 * MediaQuery.of(context).size.width,
+              width: widget.parentConstraints != null ? 0.23 * widget.parentConstraints!.maxWidth : 0.23 * MediaQuery.of(context).size.width,
               height: 18,
               decoration: BoxDecoration(
                 color: Colors.black,
@@ -82,7 +84,7 @@ class _SummonerInfoState extends State<SummonerInfo> {
           children: [
             Container(
               constraints: BoxConstraints(
-                  maxWidth: 0.61 * MediaQuery.of(context).size.width),
+                  maxWidth: widget.parentConstraints != null ? 0.58 * widget.parentConstraints!.maxWidth : 0.61 * MediaQuery.of(context).size.width),
               child: FittedBox(
                 fit: BoxFit.fitWidth,
                 child: Text(
@@ -116,7 +118,7 @@ class _SummonerInfoState extends State<SummonerInfo> {
       Color rankedTextColor = Theme.of(context).primaryColor;
       Widget rankedText = const Text("");
       Widget lpText = const Text("");
-      final double rankMaxWidth = 1 * MediaQuery.of(context).size.width;
+      final double rankMaxWidth = widget.parentConstraints != null ? 0.90 * widget.parentConstraints!.maxWidth : MediaQuery.of(context).size.width;
 
       if (!widget.model.isLoading.value) {
         String tierString =
@@ -125,7 +127,7 @@ class _SummonerInfoState extends State<SummonerInfo> {
             ? " ${widget.model.summoner.rankSoloDuo!.rank}"
             : "";
         String lpString = widget.model.summoner.rankSoloDuo != null
-            ? "${widget.model.summoner.rankSoloDuo!.lp} LP"
+            ? ": ${widget.model.summoner.rankSoloDuo!.lp} LP"
             : "";
         if (widget.model.summoner.rankSoloDuo != null) {
           switch (widget.model.summoner.rankSoloDuo!.tier.toLowerCase()) {
@@ -180,7 +182,7 @@ class _SummonerInfoState extends State<SummonerInfo> {
         }
 
         rankedText = Text(
-          "$tierString$rankString: ",
+          "$tierString$rankString",
           style: Theme.of(context).textTheme.headline3!.copyWith(
                 fontWeight: FontWeight.bold,
                 color: rankedTextColor,
@@ -190,29 +192,22 @@ class _SummonerInfoState extends State<SummonerInfo> {
         lpText = Text(
           lpString,
           style: Theme.of(context).textTheme.headline3!.copyWith(
-            fontWeight: FontWeight.bold,
-            color: rankedTextColor,
-          ),
+                fontWeight: FontWeight.bold,
+                color: rankedTextColor,
+              ),
         );
 
-        return Row(
-          children: [
-            Container(
-                constraints: BoxConstraints(maxWidth: rankMaxWidth),
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: FittedBox(
-                    fit: BoxFit.fitWidth,
-                    child: Row(
-                      children: [
-                        rankedText,
-                        lpText
-                      ],
-                    ),
-                  ),
-                )
+        return Container(
+          constraints: BoxConstraints(maxWidth: rankMaxWidth),
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: FittedBox(
+              fit: BoxFit.fitWidth,
+              child: Row(
+                children: [rankedText, lpText],
+              ),
             ),
-          ],
+          ),
         );
       } else {
         return Row(
@@ -220,7 +215,7 @@ class _SummonerInfoState extends State<SummonerInfo> {
             Padding(
               padding: const EdgeInsets.all(20),
               child: Container(
-                width: 0.80 * rankMaxWidth,
+                width: 0.99 * rankMaxWidth,
                 height: 40,
                 decoration: BoxDecoration(
                   color: Colors.black,
@@ -235,18 +230,21 @@ class _SummonerInfoState extends State<SummonerInfo> {
 
     Widget _buildView() {
       if (widget.model.isSummonerInitialized) {
-        return Column(
-          children: [
-            Row(
-              children: <Widget>[
-                Center(
-                  child: _buildSummonerIcon(),
-                ),
-                _buildText(),
-              ],
-            ),
-            _buildRankedInfo(),
-          ],
+        return ShimmerLoading(
+          isLoading: widget.model.isLoading,
+          child: Column(
+            children: [
+              Row(
+                children: <Widget>[
+                  Center(
+                    child: _buildSummonerIcon(),
+                  ),
+                  _buildText(),
+                ],
+              ),
+              _buildRankedInfo(),
+            ],
+          ),
         );
       } else {
         return const SizedBox();

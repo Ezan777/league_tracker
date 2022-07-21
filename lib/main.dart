@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:league_tracker/views/search_bar.dart';
 import 'package:league_tracker/models/model.dart';
 import 'package:league_tracker/animated_shimmer/shimmer.dart';
-import 'package:league_tracker/animated_shimmer/shimmer_loading.dart';
-import 'package:league_tracker/views/summoner_info_view.dart';
+import 'package:league_tracker/views/summoner_card.dart';
 
 void main() {
   runApp(const MyApp());
@@ -43,38 +42,6 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
 
-  final _shimmerGradientLight = const LinearGradient(
-    colors: [
-      Color(0xFFEBEBF4),
-      Color(0xFFF4F4F4),
-      Color(0xFFEBEBF4),
-    ],
-    stops: [
-      0.1,
-      0.3,
-      0.4,
-    ],
-    begin: Alignment(-1.0, -0.3),
-    end: Alignment(1.0, 0.3),
-    tileMode: TileMode.clamp,
-  );
-
-  final _shimmerGradientDark = const LinearGradient(
-    colors: [
-      Color(0xFF6C6C72),
-      Color(0xFF8F8C8C),
-      Color(0xFF949498),
-    ],
-    stops: [
-      0.1,
-      0.3,
-      0.4,
-    ],
-    begin: Alignment(-1.0, -0.3),
-    end: Alignment(1.0, 0.3),
-    tileMode: TileMode.clamp,
-  );
-
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
@@ -95,10 +62,9 @@ class _MyHomePageState extends State<MyHomePage> {
     _model.isLoading = isLoading;
 
     return Shimmer(
-      linearGradient:
-          MediaQuery.of(context).platformBrightness == Brightness.dark
-              ? widget._shimmerGradientDark
-              : widget._shimmerGradientLight,
+      linearGradient: MediaQuery.of(context).platformBrightness == Brightness.dark
+          ? shimmerGradientDark
+          : shimmerGradientLight,
       child: Scaffold(
         appBar: AppBar(
           title: Text(_title),
@@ -107,23 +73,15 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             const SizedBox(height: 20),
             SearchBar(model: _model),
-            const SizedBox(height: 22),
-            Container(
-              color: Theme.of(context).textTheme.bodyLarge!.color,
-              width: MediaQuery.of(context).size.width,
-              height: 1,
-            ),
+            const SizedBox(height: 20),
             AnimatedBuilder(
-                animation: _model.isLoading,
-                builder: (BuildContext context, Widget? child) {
-                  return ShimmerLoading(
-                    isLoading: _model.isLoading,
-                    child: SummonerInfo(
-                      isLoading: _model.isLoading,
-                      model: _model,
-                    ),
-                  );
-                }),
+              animation: _model.isLoading,
+              builder: (BuildContext context, Widget? child) {
+                return Padding(
+                  padding: const EdgeInsets.all(5),
+                  child: SummonerCard(model: _model,),
+                );
+              },),
           ],
         ),
       ),
