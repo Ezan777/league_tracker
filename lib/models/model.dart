@@ -4,6 +4,8 @@ import 'package:darthus/darthus.dart';
 
 import '../api_key.dart';
 
+class Trial implements Exception {}
+
 class Model {
   ValueNotifier<bool> isLoading;
   bool _isSummonerInitialized;
@@ -15,12 +17,20 @@ class Model {
     ApiRequest.setApiKey(key: myApiKey);
   }
 
-  void buildSummoner() async {
-    summoner = Summoner(server.toString().split('.').last, searchedText);
-    _isSummonerInitialized = true;
-    isLoading.value = true;
-    await summoner.buildSummoner();
-    isLoading.value = false;
+  Future<void> buildSummoner() async {
+    if (searchedText != "") {
+      summoner = Summoner(server.toString().split('.').last, searchedText);
+      _isSummonerInitialized = true;
+      isLoading.value = true;
+      try {
+        await summoner.buildSummoner();
+      } on DataNotFound {
+        _isSummonerInitialized = false;
+        isLoading.value = false;
+        rethrow;
+      }
+      isLoading.value = false;
+    }
   }
 
   bool get isSummonerInitialized => _isSummonerInitialized;
