@@ -17,8 +17,6 @@ class SummonerInfo extends StatefulWidget {
 class _SummonerInfoState extends State<SummonerInfo> {
   @override
   Widget build(BuildContext context) {
-    //final Summoner summoner;
-
     Widget _buildSummonerIcon() {
       if (widget.isLoading.value) {
         return Padding(
@@ -44,7 +42,7 @@ class _SummonerInfoState extends State<SummonerInfo> {
             ),
             child: ClipOval(
               child: Image.asset(
-                'assets/images/profile_icon/${widget.model.summoner.iconId()}.png',
+                'assets/images/profile_icon/${widget.model.summoner.iconId}.png',
               ),
             ),
           ),
@@ -83,16 +81,17 @@ class _SummonerInfoState extends State<SummonerInfo> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              constraints: BoxConstraints(maxWidth: 0.61 * MediaQuery.of(context).size.width),
+              constraints: BoxConstraints(
+                  maxWidth: 0.61 * MediaQuery.of(context).size.width),
               child: FittedBox(
                 fit: BoxFit.fitWidth,
                 child: Text(
-                  "${widget.model.summoner.summonerName()[0].toUpperCase()}${widget.model.summoner.summonerName().substring(1)}",
+                  "${widget.model.summoner.summonerName[0].toUpperCase()}${widget.model.summoner.summonerName.substring(1)}",
                   style: Theme.of(context).textTheme.headline3!.copyWith(
                       fontSize: 40,
                       fontWeight: FontWeight.bold,
                       color: MediaQuery.of(context).platformBrightness ==
-                          Brightness.dark
+                              Brightness.dark
                           ? Theme.of(context).textTheme.headline3!.color
                           : Theme.of(context).primaryColor),
                 ),
@@ -102,7 +101,7 @@ class _SummonerInfoState extends State<SummonerInfo> {
               height: 10,
             ),
             Text(
-              "Level: ${widget.model.summoner.summonerLevel()}",
+              "Level: ${widget.model.summoner.summonerLevel}",
               style: Theme.of(context)
                   .textTheme
                   .headlineSmall!
@@ -113,14 +112,122 @@ class _SummonerInfoState extends State<SummonerInfo> {
       }
     }
 
+    Widget _buildRankedInfo() {
+      Color rankedTextColor = Theme.of(context).primaryColor;
+      Widget rankedText = const Text("");
+      final double rankMaxWidth = 0.65 * MediaQuery.of(context).size.width;
+
+      if (!widget.model.isLoading.value) {
+        String tierString =
+            "${widget.model.summoner.rankSoloDuo != null ? widget.model.summoner.rankSoloDuo!.tier.toUpperCase() : "UNRANKED"} ";
+        String rankString = widget.model.summoner.rankSoloDuo != null
+            ? widget.model.summoner.rankSoloDuo!.rank
+            : "";
+        if (widget.model.summoner.rankSoloDuo != null) {
+          switch (widget.model.summoner.rankSoloDuo!.tier.toLowerCase()) {
+            case ("iron"):
+              MediaQuery.of(context).platformBrightness == Brightness.light
+                  ? rankedTextColor = Colors.grey.shade800
+                  : rankedTextColor = Colors.grey;
+              break;
+            case ("bronze"):
+              MediaQuery.of(context).platformBrightness == Brightness.light
+                  ? rankedTextColor = Colors.brown
+                  : rankedTextColor = Colors.brown.shade300;
+              break;
+            case ("silver"):
+              MediaQuery.of(context).platformBrightness == Brightness.light
+                  ? rankedTextColor = Colors.grey.shade600
+                  : rankedTextColor = Colors.grey.shade400;
+              break;
+            case ("gold"):
+              MediaQuery.of(context).platformBrightness == Brightness.light
+                  ? rankedTextColor = Colors.lime.shade800
+                  : rankedTextColor = Colors.lime.shade600;
+              break;
+            case ("platinum"):
+              MediaQuery.of(context).platformBrightness == Brightness.light
+                  ? rankedTextColor = Colors.teal
+                  : rankedTextColor = Colors.teal.shade400;
+              break;
+            case ("diamond"):
+              MediaQuery.of(context).platformBrightness == Brightness.light
+                  ? rankedTextColor = Colors.blue.shade700
+                  : rankedTextColor = Colors.blue;
+              break;
+            case ("master"):
+              MediaQuery.of(context).platformBrightness == Brightness.light
+                  ? rankedTextColor = Colors.purple.shade700
+                  : rankedTextColor = Colors.purple.shade400;
+              rankString = "";
+              break;
+            case ("grandmaster"):
+              MediaQuery.of(context).platformBrightness == Brightness.light
+                  ? rankedTextColor = Colors.red.shade600
+                  : rankedTextColor = Colors.redAccent.shade400;
+              rankString = "";
+              break;
+            case ("challenger"):
+              MediaQuery.of(context).platformBrightness == Brightness.light
+                  ? rankedTextColor = Colors.amber.shade600
+                  : rankedTextColor = Colors.amber;
+              rankString = "";
+          }
+        }
+
+        rankedText = Text(
+          "$tierString $rankString",
+          style: Theme.of(context).textTheme.headline3!.copyWith(
+                fontWeight: FontWeight.bold,
+                color: rankedTextColor,
+              ),
+        );
+
+        return Row(
+          children: [
+            Container(
+                constraints: BoxConstraints(maxWidth: rankMaxWidth),
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: FittedBox(
+                    fit: BoxFit.fitWidth,
+                    child: rankedText,
+                  ),
+                )),
+          ],
+        );
+      } else {
+        return Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: Container(
+                width: rankMaxWidth,
+                height: 40,
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(16),
+                ),
+              ),
+            ),
+          ],
+        );
+      }
+    }
+
     Widget _buildView() {
       if (widget.model.isSummonerInitialized) {
-        return Row(
-          children: <Widget>[
-            Center(
-              child: _buildSummonerIcon(),
+        return Column(
+          children: [
+            Row(
+              children: <Widget>[
+                Center(
+                  child: _buildSummonerIcon(),
+                ),
+                _buildText(),
+              ],
             ),
-            _buildText(),
+            _buildRankedInfo(),
           ],
         );
       } else {
