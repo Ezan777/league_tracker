@@ -4,8 +4,6 @@ import 'package:darthus/darthus.dart';
 
 import '../api_key.dart';
 
-class Trial implements Exception {}
-
 class Model {
   ValueNotifier<bool> isLoading, showRankedFlex;
   bool _isSummonerInitialized;
