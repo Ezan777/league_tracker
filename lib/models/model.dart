@@ -8,12 +8,12 @@ class Trial implements Exception {}
 
 class Model {
   ValueNotifier<bool> isLoading;
-  bool _isSummonerInitialized;
+  bool _isSummonerInitialized, showRankedFlex;
   String searchedText;
   LolServers server;
   late Summoner summoner;
 
-  Model(): _isSummonerInitialized = false, isLoading = ValueNotifier<bool>(false), searchedText = '', server = LolServers.euw1 {
+  Model(): _isSummonerInitialized = false, isLoading = ValueNotifier<bool>(false), searchedText = '', server = LolServers.euw1, showRankedFlex = false {
     ApiRequest.setApiKey(key: myApiKey);
   }
 

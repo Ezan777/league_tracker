@@ -16,6 +16,8 @@ class _SummonerCardState extends State<SummonerCard> {
   @override
   Widget build(BuildContext context) {
     if(widget.model.isSummonerInitialized) {
+      /*TODO need to add two buttons at the end of the card, one for the match history and one for live matches, before that I need to add live match to darthus */
+      // I was thinking to implement the match history and live match button, as buttons with containers as children
       return Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
