@@ -20,6 +20,7 @@ class Model {
     ApiRequest.setApiKey(key: myApiKey);
   }
 
+  /// This function is going to build the summoner with 100 games in matchHistory
   Future<void> buildSummoner() async {
     if (searchedText != "") {
       summoner = Summoner(server.toString().split('.').last, searchedText);
@@ -27,6 +28,7 @@ class Model {
       isLoading.value = true;
       try {
         await summoner.buildSummoner();
+        summoner.getMatches(numberOfMatches: 100);
       } on DataNotFound {
         _isSummonerInitialized = false;
         isLoading.value = false;
