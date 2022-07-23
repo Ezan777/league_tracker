@@ -21,7 +21,7 @@ class Model {
     ApiRequest.setApiKey(key: myApiKey);
   }
 
-  /// This function is going to build the summoner with 100 games in matchHistory
+  /// This function is going to build the summoner with 20 games in matchHistory
   Future<void> buildSummoner() async {
     if (searchedText != "") {
       summoner = Summoner(server.toString().split('.').last, searchedText);
@@ -29,8 +29,8 @@ class Model {
       isLoading.value = true;
       try {
         await summoner.buildSummoner();
-        await summoner.getMatches(numberOfMatches: 100);
         isLoading.value = false;
+        await buildMatches(numberOfMatches: 20);
       } catch(e) {
         _isSummonerInitialized = false;
         isLoading.value = false;
@@ -43,7 +43,11 @@ class Model {
   Future<void> buildMatches({int numberOfMatches = 5}) async {
     buildingMatches.value = true;
     for(int i = summoner.allMatches.length; i < numberOfMatches; ++i) {
-      await summoner.buildMatchAt(i);
+      try {
+        await summoner.buildMatchAt(i);
+      } catch (e) {
+        await Future.delayed(const Duration(seconds: 5));
+      }
     }
     buildingMatches.value = false;
   }
