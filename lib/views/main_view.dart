@@ -35,6 +35,7 @@ class _MainViewState extends State<MainView> {
             );
           },
         ),
+        const SizedBox(height: 15,),
         Expanded(
           child: CustomScrollView(
             slivers: [
@@ -48,32 +49,5 @@ class _MainViewState extends State<MainView> {
         ),
       ],
     );
-    /*return CustomScrollView(
-      slivers: [
-        SliverList(
-            delegate: SliverChildListDelegate.fixed(
-              [
-                const SizedBox(height: 20),
-                SearchBar(model: widget.model),
-                const SizedBox(height: 20),
-                AnimatedBuilder(
-                  animation: widget.model.isLoading,
-                  builder: (BuildContext context, Widget? child) {
-                    return Padding(
-                      padding: const EdgeInsets.all(5),
-                      child: SummonerCard(
-                        model: widget.model,
-                      ),
-                    );
-                  },
-                ),
-              ]
-            )
-        ),
-        AnimatedBuilder(animation: widget.model.buildingMatches, builder: (BuildContext context, Widget? child) {
-          return MatchHistory(model: widget.model);
-        }),
-      ],
-    );*/
   }
 }
