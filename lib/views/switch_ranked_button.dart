@@ -13,47 +13,56 @@ class SwitchRankedButton extends StatefulWidget {
 class _SwitchRankedButtonState extends State<SwitchRankedButton> {
   @override
   Widget build(BuildContext context) {
-    return PopupMenuButton(
-      itemBuilder: (BuildContext context) => <PopupMenuItem<String>>[
-        const PopupMenuItem(value: "SoloDuo", child: Text("Ranked Solo/Duo")),
-        const PopupMenuItem(value: "Flex", child: Text("Ranked Flex")),
-      ],
-      onSelected: (String selected) {
-        if (!widget.model.showRankedFlex.value) {
-          if (selected != "SoloDuo") {
-            widget.model.showRankedFlex.value = true;
-          }
-        } else {
-          if (selected == "SoloDuo") {
-            widget.model.showRankedFlex.value = false;
-          }
-        }
-        setState(() {});
-      },
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(9)),
-      ),
-      color: Theme.of(context).popupMenuTheme.color,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(15),
-        child: Text.rich(
-          TextSpan(
-            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-              fontSize: 18,
+    return !widget.model.isLoading.value
+        ? PopupMenuButton(
+            itemBuilder: (BuildContext context) => <PopupMenuItem<String>>[
+              const PopupMenuItem(
+                  value: "SoloDuo", child: Text("Ranked Solo/Duo")),
+              const PopupMenuItem(value: "Flex", child: Text("Ranked Flex")),
+            ],
+            onSelected: (String selected) {
+              if (!widget.model.showRankedFlex.value) {
+                if (selected != "SoloDuo") {
+                  widget.model.showRankedFlex.value = true;
+                }
+              } else {
+                if (selected == "SoloDuo") {
+                  widget.model.showRankedFlex.value = false;
+                }
+              }
+              setState(() {});
+            },
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(9)),
             ),
-            children: [
-              TextSpan(
-                text: widget.model.showRankedFlex.value
-                    ? "Ranked Flex"
-                    : "Ranked Solo/Duo",
+            color: Theme.of(context).popupMenuTheme.color,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(15),
+              child: Text.rich(
+                TextSpan(
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                          fontSize: 18,
+                        ),
+                    children: [
+                      TextSpan(
+                        text: widget.model.showRankedFlex.value
+                            ? "Ranked Flex"
+                            : "Ranked Solo/Duo",
+                      ),
+                      const WidgetSpan(
+                        child: Icon(Icons.expand_more),
+                      ),
+                    ]),
               ),
-              const WidgetSpan(
-                  child: Icon(Icons.expand_more),
-              ),
-            ]
-          ),
-        ),
-      ),
-    );
+            ),
+          )
+        : Container(
+            width: 150,
+            height: 30,
+            decoration: BoxDecoration(
+              color: Colors.black,
+              borderRadius: BorderRadius.circular(15),
+            ),
+          );
   }
 }
