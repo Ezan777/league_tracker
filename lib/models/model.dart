@@ -7,13 +7,18 @@ import '../api_key.dart';
 class Trial implements Exception {}
 
 class Model {
-  ValueNotifier<bool> isLoading;
-  bool _isSummonerInitialized, showRankedFlex;
+  ValueNotifier<bool> isLoading, showRankedFlex;
+  bool _isSummonerInitialized;
   String searchedText;
   LolServers server;
   late Summoner summoner;
 
-  Model(): _isSummonerInitialized = false, isLoading = ValueNotifier<bool>(false), searchedText = '', server = LolServers.euw1, showRankedFlex = false {
+  Model()
+      : _isSummonerInitialized = false,
+        isLoading = ValueNotifier<bool>(false),
+        searchedText = '',
+        server = LolServers.euw1,
+        showRankedFlex = ValueNotifier<bool>(false) {
     ApiRequest.setApiKey(key: myApiKey);
   }
 

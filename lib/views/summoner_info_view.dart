@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:league_tracker/animated_shimmer/shimmer_loading.dart';
+import 'package:league_tracker/views/switch_ranked_button.dart';
 
 import '../models/model.dart';
 
@@ -441,7 +442,17 @@ class _SummonerInfoState extends State<SummonerInfo> {
                   _buildText(),
                 ],
               ),
-              _buildRankedSoloDuoInfo(),
+              SwitchRankedButton(model: widget.model,),
+              AnimatedBuilder(
+                  animation: widget.model.showRankedFlex,
+                  builder: (BuildContext context, Widget? child) {
+                    if(widget.model.showRankedFlex.value) {
+                      return _buildRankedFlexInfo();
+                    } else {
+                      return _buildRankedSoloDuoInfo();
+                    }
+                  },
+              ),
             ],
           ),
         );
