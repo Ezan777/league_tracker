@@ -41,6 +41,28 @@ class _SearchBarState extends State<SearchBar> {
                   ),
                 ],
               ));
+    } on RateLimitExceeded {
+      showDialog(
+          context: context,
+          builder: (_) => AlertDialog(
+            title: const Text("Request rate limit exceeded"),
+            content: const Text(
+                "There are too many requests, wait a moment and try again please"),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            actions: [
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: ElevatedButton(
+                  child: const Text("Ok"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ),
+            ],
+          ));
     }
   }
 

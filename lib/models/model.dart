@@ -5,7 +5,7 @@ import 'package:darthus/darthus.dart';
 import '../api_key.dart';
 
 class Model {
-  ValueNotifier<bool> isLoading, showRankedFlex;
+  ValueNotifier<bool> isLoading, showRankedFlex, buildingMatches;
   bool _isSummonerInitialized;
   String searchedText;
   LolServers server;
@@ -16,7 +16,8 @@ class Model {
         isLoading = ValueNotifier<bool>(false),
         searchedText = '',
         server = LolServers.euw1,
-        showRankedFlex = ValueNotifier<bool>(false) {
+        showRankedFlex = ValueNotifier<bool>(false),
+        buildingMatches = ValueNotifier<bool>(false) {
     ApiRequest.setApiKey(key: myApiKey);
   }
 
@@ -28,14 +29,23 @@ class Model {
       isLoading.value = true;
       try {
         await summoner.buildSummoner();
-        summoner.getMatches(numberOfMatches: 100);
-      } on DataNotFound {
+        await summoner.getMatches(numberOfMatches: 100);
+        isLoading.value = false;
+      } catch(e) {
         _isSummonerInitialized = false;
         isLoading.value = false;
         rethrow;
       }
-      isLoading.value = false;
     }
+  }
+
+  /// Build the given number of matches.
+  Future<void> buildMatches({int numberOfMatches = 5}) async {
+    buildingMatches.value = true;
+    for(int i = summoner.allMatches.length; i < numberOfMatches; ++i) {
+      await summoner.buildMatchAt(i);
+    }
+    buildingMatches.value = false;
   }
 
   bool get isSummonerInitialized => _isSummonerInitialized;
