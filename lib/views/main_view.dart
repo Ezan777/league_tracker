@@ -19,7 +19,36 @@ class _MainViewState extends State<MainView> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
+    return Column(
+      children: [
+        const SizedBox(height: 20),
+        SearchBar(model: widget.model),
+        const SizedBox(height: 20),
+        AnimatedBuilder(
+          animation: widget.model.isLoading,
+          builder: (BuildContext context, Widget? child) {
+            return Padding(
+              padding: const EdgeInsets.all(5),
+              child: SummonerCard(
+                model: widget.model,
+              ),
+            );
+          },
+        ),
+        Expanded(
+          child: CustomScrollView(
+            slivers: [
+              AnimatedBuilder(
+                  animation: widget.model.buildingMatches,
+                  builder: (BuildContext context, Widget? child) {
+                    return MatchHistory(model: widget.model);
+                  }),
+            ],
+          ),
+        ),
+      ],
+    );
+    /*return CustomScrollView(
       slivers: [
         SliverList(
             delegate: SliverChildListDelegate.fixed(
@@ -45,6 +74,6 @@ class _MainViewState extends State<MainView> {
           return MatchHistory(model: widget.model);
         }),
       ],
-    );
+    );*/
   }
 }
