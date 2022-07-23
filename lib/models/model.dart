@@ -46,7 +46,11 @@ class Model {
       try {
         await summoner.buildMatchAt(i);
       } catch (e) {
+        buildingMatches.value = false;
         await Future.delayed(const Duration(seconds: 5));
+        if(i < numberOfMatches) {
+          buildMatches(numberOfMatches: numberOfMatches);
+        }
       }
     }
     buildingMatches.value = false;

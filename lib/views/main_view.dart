@@ -19,23 +19,31 @@ class _MainViewState extends State<MainView> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(height: 20),
-        SearchBar(model: widget.model),
-        const SizedBox(height: 20),
-        AnimatedBuilder(
-          animation: widget.model.isLoading,
-          builder: (BuildContext context, Widget? child) {
-            return Padding(
-              padding: const EdgeInsets.all(5),
-              child: SummonerCard(
-                model: widget.model,
-              ),
-            );
-          },
+    return CustomScrollView(
+      slivers: [
+        SliverList(
+            delegate: SliverChildListDelegate.fixed(
+              [
+                const SizedBox(height: 20),
+                SearchBar(model: widget.model),
+                const SizedBox(height: 20),
+                AnimatedBuilder(
+                  animation: widget.model.isLoading,
+                  builder: (BuildContext context, Widget? child) {
+                    return Padding(
+                      padding: const EdgeInsets.all(5),
+                      child: SummonerCard(
+                        model: widget.model,
+                      ),
+                    );
+                  },
+                ),
+              ]
+            )
         ),
-        //MatchHistory(model: widget.model),
+        AnimatedBuilder(animation: widget.model.buildingMatches, builder: (BuildContext context, Widget? child) {
+          return MatchHistory(model: widget.model);
+        }),
       ],
     );
   }

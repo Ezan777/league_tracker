@@ -16,20 +16,16 @@ class MatchHistory extends StatefulWidget {
 class _MatchHistoryState extends State<MatchHistory> {
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: [
-        SliverList(
-          delegate:
-              SliverChildBuilderDelegate((BuildContext context, int index) {
-            return ShimmerLoading(
-                isLoading: widget.model.buildingMatches,
-                child: MatchCard(
-                  index: index,
-                  model: widget.model,
-                ));
-          }),
-        ),
-      ],
+    return SliverList(
+      delegate:
+      SliverChildBuilderDelegate((BuildContext context, int index) {
+        return MatchCard(
+          index: index,
+          model: widget.model,
+        );
+      },
+        childCount: 20,
+      ),
     );
   }
 }
