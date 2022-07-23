@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:league_tracker/views/search_bar.dart';
+import 'package:league_tracker/views/main_view.dart';
 import 'package:league_tracker/models/model.dart';
 import 'package:league_tracker/animated_shimmer/shimmer.dart';
-import 'package:league_tracker/views/summoner_card.dart';
 
 void main() {
   runApp(const MyApp());
@@ -69,21 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar: AppBar(
           title: Text(_title),
         ),
-        body: Column(
-          children: [
-            const SizedBox(height: 20),
-            SearchBar(model: _model),
-            const SizedBox(height: 20),
-            AnimatedBuilder(
-              animation: _model.isLoading,
-              builder: (BuildContext context, Widget? child) {
-                return Padding(
-                  padding: const EdgeInsets.all(5),
-                  child: SummonerCard(model: _model,),
-                );
-              },),
-          ],
-        ),
+        body: MainView(model: _model,),
       ),
     );
   }
