@@ -18,8 +18,8 @@ class _SearchBarState extends State<SearchBar> {
   void _submitted(String text) async {
     widget._model.searchedText = text;
     try {
-      await widget._model.buildSummoner();
       widget._model.showSearchBar.value = false;
+      await widget._model.buildSummoner();
     } on DataNotFound {
       showDialog(
           context: context,
