@@ -24,7 +24,11 @@ class _MainViewState extends State<MainView> {
             animation: widget.model.showSearchBar,
             builder: (BuildContext context, Widget? child) {
               return AnimatedSwitcher(
-                duration: const Duration(milliseconds: 400),
+                transitionBuilder: (Widget child, Animation<double> animation) => ScaleTransition(
+                  scale: animation,
+                  child: child,
+                ),
+                duration: const Duration(milliseconds: 200),
                 child: widget.model.showSearchBar.value ? Column(
                   children: [
                     SizedBox(height: widget.model.showSearchBar.value ? 20 : 0),
