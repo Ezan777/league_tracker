@@ -44,6 +44,13 @@ class _MatchCardState extends State<MatchCard> {
                       color: Colors.white, fontWeight: FontWeight.bold),
                 ),
               ),
+              Positioned(
+                top: 20,
+                right: 20,
+                child: Text(widget.model.summoner.allMatches[widget.index].matchType ?? "",
+                style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                    color: Colors.white, fontWeight: FontWeight.bold),),
+              ),
               Positioned.fill(
                 top: 150,
                 child: Container(
