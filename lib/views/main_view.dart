@@ -23,12 +23,16 @@ class _MainViewState extends State<MainView> {
         AnimatedBuilder(
             animation: widget.model.showSearchBar,
             builder: (BuildContext context, Widget? child) {
-              return Column(
-                children: [
-                  SizedBox(height: widget.model.showSearchBar.value ? 20 : 0),
-                  SearchBar(model: widget.model),
-                  SizedBox(height: widget.model.showSearchBar.value ? 20 : 0),
-                ],
+              return AnimatedSwitcher(
+                duration: const Duration(milliseconds: 400),
+                child: widget.model.showSearchBar.value ? Column(
+                  children: [
+                    SizedBox(height: widget.model.showSearchBar.value ? 20 : 0),
+                    SearchBar(model: widget.model),
+                    SizedBox(height: widget.model.showSearchBar.value ? 20 : 0),
+                  ],
+                )
+                : const SizedBox(),
               );
             }),
         AnimatedBuilder(
