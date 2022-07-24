@@ -1,6 +1,5 @@
 import 'package:darthus/darthus.dart';
 import 'package:flutter/material.dart';
-import 'package:league_tracker/animated_shimmer/shimmer_loading.dart';
 
 import '../models/model.dart';
 
@@ -92,24 +91,6 @@ class _MatchCardState extends State<MatchCard> {
                   ],
                 ),
               ),
-              /*Positioned(
-                top: 150,
-                left: 20,
-                child: Text("${participant.kills}/${participant.deaths}/${participant.assists}",
-                style: Theme.of(context).textTheme.headlineMedium!.copyWith(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 30),),
-              ),
-              Positioned(
-                top: 150,
-                left: 130,
-                child: Text("${participant.minons} CS",
-                  style: Theme.of(context).textTheme.headlineMedium!.copyWith(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 30),),
-                ),
-              Positioned(
-                top: 150,
-                right: 20,
-                child: Text("${(participant.goldEarned / 1000).toStringAsFixed(1)} k",
-                style: Theme.of(context).textTheme.headlineMedium!.copyWith(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 30),),
-              ),*/
             ],
           ),
         );
@@ -117,12 +98,15 @@ class _MatchCardState extends State<MatchCard> {
         return const SizedBox();
       }
     } else {
-      return Container(
-        width: 0.80 * MediaQuery.of(context).size.width,
-        height: 50,
-        decoration: BoxDecoration(
-          color: Colors.black,
-          borderRadius: BorderRadius.circular(15),
+      return Padding(
+        padding: const EdgeInsets.all(10),
+        child: Container(
+          width: 0.80 * MediaQuery.of(context).size.width,
+          height: 200,
+          decoration: BoxDecoration(
+            color: Colors.black,
+            borderRadius: BorderRadius.circular(15),
+          ),
         ),
       );
     }
@@ -130,7 +114,6 @@ class _MatchCardState extends State<MatchCard> {
 
   @override
   Widget build(BuildContext context) {
-    return ShimmerLoading(
-        isLoading: widget.model.buildingMatches, child: _buildCard());
+    return _buildCard();
   }
 }
