@@ -61,14 +61,28 @@ class _MyHomePageState extends State<MyHomePage> {
     _model.isLoading = isLoading;
 
     return Shimmer(
-      linearGradient: MediaQuery.of(context).platformBrightness == Brightness.dark
-          ? shimmerGradientDark
-          : shimmerGradientLight,
+      linearGradient:
+          MediaQuery.of(context).platformBrightness == Brightness.dark
+              ? shimmerGradientDark
+              : shimmerGradientLight,
       child: Scaffold(
         appBar: AppBar(
           title: Text(_title),
+          actions: [
+            TextButton(
+              onPressed: () {
+                _model.showSearchBar.value = !_model.showSearchBar.value;
+              },
+              child: const Icon(
+                Icons.search,
+                color: Colors.white,
+              ),
+            )
+          ],
         ),
-        body: MainView(model: _model,),
+        body: MainView(
+          model: _model,
+        ),
       ),
     );
   }

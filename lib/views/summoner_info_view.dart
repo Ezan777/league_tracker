@@ -9,7 +9,11 @@ class SummonerInfo extends StatefulWidget {
   final Model model;
   final BoxConstraints? parentConstraints;
 
-  const SummonerInfo({Key? key, required this.isLoading, required this.model, this.parentConstraints})
+  const SummonerInfo(
+      {Key? key,
+      required this.isLoading,
+      required this.model,
+      this.parentConstraints})
       : super(key: key);
 
   @override
@@ -62,7 +66,9 @@ class _SummonerInfoState extends State<SummonerInfo> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              width: widget.parentConstraints != null ? 0.55 * widget.parentConstraints!.maxWidth : 0.55 * MediaQuery.of(context).size.width,
+              width: widget.parentConstraints != null
+                  ? 0.55 * widget.parentConstraints!.maxWidth
+                  : 0.55 * MediaQuery.of(context).size.width,
               height: 24,
               decoration: BoxDecoration(
                 color: Colors.black,
@@ -73,7 +79,9 @@ class _SummonerInfoState extends State<SummonerInfo> {
               height: 10,
             ),
             Container(
-              width: widget.parentConstraints != null ? 0.23 * widget.parentConstraints!.maxWidth : 0.23 * MediaQuery.of(context).size.width,
+              width: widget.parentConstraints != null
+                  ? 0.23 * widget.parentConstraints!.maxWidth
+                  : 0.23 * MediaQuery.of(context).size.width,
               height: 18,
               decoration: BoxDecoration(
                 color: Colors.black,
@@ -88,7 +96,9 @@ class _SummonerInfoState extends State<SummonerInfo> {
           children: [
             Container(
               constraints: BoxConstraints(
-                  maxWidth: widget.parentConstraints != null ? 0.58 * widget.parentConstraints!.maxWidth : 0.61 * MediaQuery.of(context).size.width),
+                  maxWidth: widget.parentConstraints != null
+                      ? 0.58 * widget.parentConstraints!.maxWidth
+                      : 0.61 * MediaQuery.of(context).size.width),
               child: FittedBox(
                 fit: BoxFit.fitWidth,
                 child: Text(
@@ -122,7 +132,9 @@ class _SummonerInfoState extends State<SummonerInfo> {
       Color rankedTextColor = Theme.of(context).primaryColor;
       Widget rankedText = const Text("");
       Widget lpText = const Text(""), winRateText = const Text("");
-      final double rankMaxWidth = widget.parentConstraints != null ? 0.90 * widget.parentConstraints!.maxWidth : MediaQuery.of(context).size.width;
+      final double rankMaxWidth = widget.parentConstraints != null
+          ? 0.90 * widget.parentConstraints!.maxWidth
+          : MediaQuery.of(context).size.width;
 
       if (!widget.model.isLoading.value) {
         String tierString =
@@ -202,9 +214,7 @@ class _SummonerInfoState extends State<SummonerInfo> {
         );
 
         winRateText = Text(
-          "Win rate: ${widget.model.summoner.rankSoloDuo != null
-          ? widget.model.summoner.rankSoloDuo!.winPercentage.toString()
-          : ""}%",
+          "Win rate: ${widget.model.summoner.rankSoloDuo != null ? widget.model.summoner.rankSoloDuo!.winPercentage.toString() : ""}%",
           style: Theme.of(context)
               .textTheme
               .headlineSmall!
@@ -226,16 +236,16 @@ class _SummonerInfoState extends State<SummonerInfo> {
               ),
             ),
             widget.model.summoner.rankSoloDuo != null
-            ? Container(
-              constraints: BoxConstraints(maxWidth: 0.50 * rankMaxWidth),
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 10),
-                child: FittedBox(
-                  fit:  BoxFit.fitWidth,
-                  child: winRateText,
-                ),
-              ),
-            )
+                ? Container(
+                    constraints: BoxConstraints(maxWidth: 0.50 * rankMaxWidth),
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: FittedBox(
+                        fit: BoxFit.fitWidth,
+                        child: winRateText,
+                      ),
+                    ),
+                  )
                 : const SizedBox(),
           ],
         );
@@ -277,7 +287,9 @@ class _SummonerInfoState extends State<SummonerInfo> {
       Color rankedTextColor = Theme.of(context).primaryColor;
       Widget rankedText = const Text("");
       Widget lpText = const Text(""), winRateText = const Text("");
-      final double rankMaxWidth = widget.parentConstraints != null ? 0.90 * widget.parentConstraints!.maxWidth : MediaQuery.of(context).size.width;
+      final double rankMaxWidth = widget.parentConstraints != null
+          ? 0.90 * widget.parentConstraints!.maxWidth
+          : MediaQuery.of(context).size.width;
 
       if (!widget.model.isLoading.value) {
         String tierString =
@@ -343,23 +355,21 @@ class _SummonerInfoState extends State<SummonerInfo> {
         rankedText = Text(
           "$tierString$rankString",
           style: Theme.of(context).textTheme.headline3!.copyWith(
-            fontWeight: FontWeight.bold,
-            color: rankedTextColor,
-          ),
+                fontWeight: FontWeight.bold,
+                color: rankedTextColor,
+              ),
         );
 
         lpText = Text(
           lpString,
           style: Theme.of(context).textTheme.headline3!.copyWith(
-            fontWeight: FontWeight.bold,
-            color: rankedTextColor,
-          ),
+                fontWeight: FontWeight.bold,
+                color: rankedTextColor,
+              ),
         );
 
         winRateText = Text(
-          "Win rate: ${widget.model.summoner.rankFlex != null
-              ? widget.model.summoner.rankFlex!.winPercentage.toString()
-              : ""}%",
+          "Win rate: ${widget.model.summoner.rankFlex != null ? widget.model.summoner.rankFlex!.winPercentage.toString() : ""}%",
           style: Theme.of(context)
               .textTheme
               .headlineSmall!
@@ -382,15 +392,15 @@ class _SummonerInfoState extends State<SummonerInfo> {
             ),
             widget.model.summoner.rankFlex != null
                 ? Container(
-              constraints: BoxConstraints(maxWidth: 0.50 * rankMaxWidth),
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 10),
-                child: FittedBox(
-                  fit:  BoxFit.fitWidth,
-                  child: winRateText,
-                ),
-              ),
-            )
+                    constraints: BoxConstraints(maxWidth: 0.50 * rankMaxWidth),
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: FittedBox(
+                        fit: BoxFit.fitWidth,
+                        child: winRateText,
+                      ),
+                    ),
+                  )
                 : const SizedBox(),
           ],
         );
@@ -442,16 +452,18 @@ class _SummonerInfoState extends State<SummonerInfo> {
                   _buildText(),
                 ],
               ),
-              SwitchRankedButton(model: widget.model,),
+              SwitchRankedButton(
+                model: widget.model,
+              ),
               AnimatedBuilder(
-                  animation: widget.model.showRankedFlex,
-                  builder: (BuildContext context, Widget? child) {
-                    if(widget.model.showRankedFlex.value) {
-                      return _buildRankedFlexInfo();
-                    } else {
-                      return _buildRankedSoloDuoInfo();
-                    }
-                  },
+                animation: widget.model.showRankedFlex,
+                builder: (BuildContext context, Widget? child) {
+                  if (widget.model.showRankedFlex.value) {
+                    return _buildRankedFlexInfo();
+                  } else {
+                    return _buildRankedSoloDuoInfo();
+                  }
+                },
               ),
             ],
           ),

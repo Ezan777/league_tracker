@@ -19,6 +19,7 @@ class _SearchBarState extends State<SearchBar> {
     widget._model.searchedText = text;
     try {
       await widget._model.buildSummoner();
+      widget._model.showSearchBar.value = false;
     } on DataNotFound {
       showDialog(
           context: context,
@@ -45,60 +46,64 @@ class _SearchBarState extends State<SearchBar> {
       showDialog(
           context: context,
           builder: (_) => AlertDialog(
-            title: const Text("Request rate limit exceeded"),
-            content: const Text(
-                "There are too many requests, wait a moment and try again please"),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-            actions: [
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: ElevatedButton(
-                  child: const Text("Ok"),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
+                title: const Text("Request rate limit exceeded"),
+                content: const Text(
+                    "There are too many requests, wait a moment and try again please"),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
                 ),
-              ),
-            ],
-          ));
+                actions: [
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: ElevatedButton(
+                      child: const Text("Ok"),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ),
+                ],
+              ));
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final bool isLargeScreen = MediaQuery.of(context).size.shortestSide > 600;
-    final double portraitsMultiplicative, landscapeMultiplicative;
+    if(widget._model.showSearchBar.value) {
+      final bool isLargeScreen = MediaQuery.of(context).size.shortestSide > 600;
+      final double portraitsMultiplicative, landscapeMultiplicative;
 
-    if (isLargeScreen) {
-      portraitsMultiplicative = 0.85;
-      landscapeMultiplicative = 0.92;
-    } else {
-      portraitsMultiplicative = 0.78;
-      landscapeMultiplicative = 0.88;
-    }
+      if (isLargeScreen) {
+        portraitsMultiplicative = 0.85;
+        landscapeMultiplicative = 0.92;
+      } else {
+        portraitsMultiplicative = 0.78;
+        landscapeMultiplicative = 0.88;
+      }
 
-    return Row(
-      children: <Widget>[
-        const SizedBox(width: 10),
-        RegionButton(model: widget._model),
-        const SizedBox(
-          width: 15,
-        ),
-        SizedBox(
-          width: MediaQuery.of(context).orientation == Orientation.portrait
-              ? (portraitsMultiplicative) * MediaQuery.of(context).size.width
-              : (landscapeMultiplicative) * MediaQuery.of(context).size.width,
-          child: TextField(
-            decoration: const InputDecoration(
-              labelText: "Summoner's name",
-              border: OutlineInputBorder(),
-            ),
-            onSubmitted: _submitted,
+      return Row(
+        children: <Widget>[
+          const SizedBox(width: 10),
+          RegionButton(model: widget._model),
+          const SizedBox(
+            width: 15,
           ),
-        )
-      ],
-    );
+          SizedBox(
+            width: MediaQuery.of(context).orientation == Orientation.portrait
+                ? (portraitsMultiplicative) * MediaQuery.of(context).size.width
+                : (landscapeMultiplicative) * MediaQuery.of(context).size.width,
+            child: TextField(
+              decoration: const InputDecoration(
+                labelText: "Summoner's name",
+                border: OutlineInputBorder(),
+              ),
+              onSubmitted: _submitted,
+            ),
+          )
+        ],
+      );
+    } else {
+      return const SizedBox();
+    }
   }
 }

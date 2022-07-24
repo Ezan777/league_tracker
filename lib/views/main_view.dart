@@ -15,15 +15,22 @@ class MainView extends StatefulWidget {
 }
 
 class _MainViewState extends State<MainView> {
-  final summonerCardKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const SizedBox(height: 20),
-        SearchBar(model: widget.model),
-        const SizedBox(height: 20),
+        AnimatedBuilder(
+            animation: widget.model.showSearchBar,
+            builder: (BuildContext context, Widget? child) {
+              return Column(
+                children: [
+                  SizedBox(height: widget.model.showSearchBar.value ? 20 : 0),
+                  SearchBar(model: widget.model),
+                  SizedBox(height: widget.model.showSearchBar.value ? 20 : 0),
+                ],
+              );
+            }),
         AnimatedBuilder(
           animation: widget.model.isLoading,
           builder: (BuildContext context, Widget? child) {

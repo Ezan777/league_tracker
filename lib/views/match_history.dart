@@ -17,20 +17,23 @@ class _MatchHistoryState extends State<MatchHistory> {
   @override
   Widget build(BuildContext context) {
     return SliverList(
-      delegate:
-      SliverChildBuilderDelegate((BuildContext context, int index) {
-        return Padding(
-          padding: const EdgeInsets.only(left: 20, right: 20),
-          child: ShimmerLoading(
-            isLoading: widget.model.buildingMatches,
-            child: MatchCard(model: widget.model, index: index,),
-          ),
-          /*child: MatchCard(
+      delegate: SliverChildBuilderDelegate(
+        (BuildContext context, int index) {
+          return Padding(
+            padding: const EdgeInsets.only(left: 20, right: 20),
+            child: ShimmerLoading(
+              isLoading: widget.model.buildingMatches,
+              child: MatchCard(
+                model: widget.model,
+                index: index,
+              ),
+            ),
+            /*child: MatchCard(
             index: index,
             model: widget.model,
           ),*/
-        );
-      },
+          );
+        },
         childCount: 20,
       ),
     );

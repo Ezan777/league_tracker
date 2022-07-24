@@ -67,9 +67,9 @@ class _MatchCardState extends State<MatchCard> {
                               .textTheme
                               .headlineMedium!
                               .copyWith(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 30),
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 30),
                         ),
                       ),
                       Padding(
@@ -80,9 +80,9 @@ class _MatchCardState extends State<MatchCard> {
                               .textTheme
                               .headlineMedium!
                               .copyWith(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 30),
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 30),
                         ),
                       ),
                       Padding(
@@ -93,9 +93,9 @@ class _MatchCardState extends State<MatchCard> {
                               .textTheme
                               .headlineMedium!
                               .copyWith(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 30),
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 30),
                         ),
                       ),
                     ],

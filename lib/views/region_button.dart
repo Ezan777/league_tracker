@@ -37,36 +37,35 @@ class _RegionButtonState extends State<RegionButton> {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
-      itemBuilder: (BuildContext context) => <PopupMenuEntry<LolServers>>[
-        const PopupMenuItem(value: LolServers.na1, child: Text("NA")),
-        const PopupMenuItem(value: LolServers.euw1, child: Text("EUW")),
-        const PopupMenuItem(value: LolServers.eun1, child: Text("EUN")),
-        const PopupMenuItem(value: LolServers.kr, child: Text("KR")),
-        const PopupMenuItem(value: LolServers.br1, child: Text("BR")),
-        const PopupMenuItem(value: LolServers.jp1, child: Text("JP")),
-        const PopupMenuItem(value: LolServers.ru1, child: Text("RU")),
-        const PopupMenuItem(value: LolServers.oce, child: Text("OCE")),
-        const PopupMenuItem(value: LolServers.tr1, child: Text("TR")),
-        const PopupMenuItem(value: LolServers.la1, child: Text("LAN")),
-        const PopupMenuItem(value: LolServers.la2, child: Text("LAS")),
-      ],
-      onSelected: _select,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(9)),
-      ),
-      color: Theme.of(context).popupMenuTheme.color,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(8),
-        child: Container(
-          color: Theme.of(context).buttonTheme.colorScheme!.background,
-          height: 40,
-          width: 55,
-          child: Center(
-            child: Text(_serverRegion[widget._model.server]!,
-                style: Theme.of(context).textTheme.bodyLarge),
-          ),
+        itemBuilder: (BuildContext context) => <PopupMenuEntry<LolServers>>[
+              const PopupMenuItem(value: LolServers.na1, child: Text("NA")),
+              const PopupMenuItem(value: LolServers.euw1, child: Text("EUW")),
+              const PopupMenuItem(value: LolServers.eun1, child: Text("EUN")),
+              const PopupMenuItem(value: LolServers.kr, child: Text("KR")),
+              const PopupMenuItem(value: LolServers.br1, child: Text("BR")),
+              const PopupMenuItem(value: LolServers.jp1, child: Text("JP")),
+              const PopupMenuItem(value: LolServers.ru1, child: Text("RU")),
+              const PopupMenuItem(value: LolServers.oce, child: Text("OCE")),
+              const PopupMenuItem(value: LolServers.tr1, child: Text("TR")),
+              const PopupMenuItem(value: LolServers.la1, child: Text("LAN")),
+              const PopupMenuItem(value: LolServers.la2, child: Text("LAS")),
+            ],
+        onSelected: _select,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(9)),
         ),
-      )
-    );
+        color: Theme.of(context).popupMenuTheme.color,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: Container(
+            color: Theme.of(context).buttonTheme.colorScheme!.background,
+            height: 40,
+            width: 55,
+            child: Center(
+              child: Text(_serverRegion[widget._model.server]!,
+                  style: Theme.of(context).textTheme.bodyLarge),
+            ),
+          ),
+        ));
   }
 }

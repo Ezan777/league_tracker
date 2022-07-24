@@ -15,7 +15,7 @@ class SummonerCard extends StatefulWidget {
 class _SummonerCardState extends State<SummonerCard> {
   @override
   Widget build(BuildContext context) {
-    if(widget.model.isSummonerInitialized) {
+    if (widget.model.isSummonerInitialized) {
       return Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
