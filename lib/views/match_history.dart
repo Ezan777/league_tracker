@@ -23,15 +23,14 @@ class _MatchHistoryState extends State<MatchHistory> {
             padding: const EdgeInsets.only(left: 20, right: 20),
             child: ShimmerLoading(
               isLoading: widget.model.buildingMatches,
-              child: MatchCard(
-                model: widget.model,
-                index: index,
+              child: LayoutBuilder(
+                builder: (context, constraints) => MatchCard(
+                  model: widget.model,
+                  index: index,
+                  constraints: constraints,
+                ),
               ),
             ),
-            /*child: MatchCard(
-            index: index,
-            model: widget.model,
-          ),*/
           );
         },
         childCount: 20,
