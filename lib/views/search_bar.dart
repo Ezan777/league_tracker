@@ -5,8 +5,9 @@ import 'package:league_tracker/models/model.dart';
 
 class SearchBar extends StatefulWidget {
   final Model _model;
+  final BoxConstraints constraints;
 
-  const SearchBar({Key? key, required Model model})
+  const SearchBar({Key? key, required Model model, required this.constraints})
       : _model = model,
         super(key: key);
 
@@ -70,7 +71,7 @@ class _SearchBarState extends State<SearchBar> {
   @override
   Widget build(BuildContext context) {
     if(widget._model.showSearchBar.value) {
-      final bool isLargeScreen = MediaQuery.of(context).size.shortestSide > 600;
+      final bool isLargeScreen = widget.constraints.maxWidth > 600;
       final double portraitsMultiplicative, landscapeMultiplicative;
 
       if (isLargeScreen) {
@@ -90,8 +91,8 @@ class _SearchBarState extends State<SearchBar> {
           ),
           SizedBox(
             width: MediaQuery.of(context).orientation == Orientation.portrait
-                ? (portraitsMultiplicative) * MediaQuery.of(context).size.width
-                : (landscapeMultiplicative) * MediaQuery.of(context).size.width,
+                ? (portraitsMultiplicative) * widget.constraints.maxWidth
+                : (landscapeMultiplicative) * widget.constraints.maxWidth,
             child: TextField(
               decoration: const InputDecoration(
                 labelText: "Summoner's name",

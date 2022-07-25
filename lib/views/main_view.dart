@@ -7,8 +7,9 @@ import '../models/model.dart';
 
 class MainView extends StatefulWidget {
   final Model model;
+  final BoxConstraints constraints;
 
-  const MainView({Key? key, required this.model}) : super(key: key);
+  const MainView({Key? key, required this.model, required this.constraints}) : super(key: key);
 
   @override
   State<MainView> createState() => _MainViewState();
@@ -32,7 +33,7 @@ class _MainViewState extends State<MainView> {
                 child: widget.model.showSearchBar.value ? Column(
                   children: [
                     SizedBox(height: widget.model.showSearchBar.value ? 20 : 0),
-                    SearchBar(model: widget.model),
+                    SearchBar(model: widget.model, constraints: widget.constraints,),
                     SizedBox(height: widget.model.showSearchBar.value ? 20 : 0),
                   ],
                 )
@@ -46,6 +47,7 @@ class _MainViewState extends State<MainView> {
               padding: const EdgeInsets.all(5),
               child: SummonerCard(
                 model: widget.model,
+                constraints: widget.constraints,
               ),
             );
           },

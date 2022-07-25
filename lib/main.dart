@@ -80,8 +80,11 @@ class _MyHomePageState extends State<MyHomePage> {
             )
           ],
         ),
-        body: MainView(
-          model: _model,
+        body: LayoutBuilder(
+          builder: (context, constraints) => MainView(
+            model: _model,
+            constraints: constraints,
+          ),
         ),
       ),
     );

@@ -7,13 +7,13 @@ import '../models/model.dart';
 class SummonerInfo extends StatefulWidget {
   final ValueNotifier<bool> isLoading;
   final Model model;
-  final BoxConstraints? parentConstraints;
+  final BoxConstraints constraints;
 
   const SummonerInfo(
       {Key? key,
       required this.isLoading,
       required this.model,
-      this.parentConstraints})
+      required this.constraints})
       : super(key: key);
 
   @override
@@ -28,8 +28,8 @@ class _SummonerInfoState extends State<SummonerInfo> {
         return Padding(
           padding: const EdgeInsets.all(20),
           child: Container(
-            width: 110,
-            height: 110,
+            width: 0.295 * widget.constraints.maxWidth,
+            height: 0.295 * widget.constraints.maxWidth,
             decoration: const BoxDecoration(
               shape: BoxShape.circle,
               color: Colors.black,
@@ -40,8 +40,8 @@ class _SummonerInfoState extends State<SummonerInfo> {
         return Padding(
           padding: const EdgeInsets.all(20),
           child: Container(
-            width: 110,
-            height: 110,
+            width: 0.295 * widget.constraints.maxWidth,
+            height: 0.295 * widget.constraints.maxWidth,
             decoration: BoxDecoration(
               border: Border.all(
                 color: Theme.of(context).primaryColor,
@@ -66,9 +66,7 @@ class _SummonerInfoState extends State<SummonerInfo> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              width: widget.parentConstraints != null
-                  ? 0.55 * widget.parentConstraints!.maxWidth
-                  : 0.55 * MediaQuery.of(context).size.width,
+              width: 0.55 * widget.constraints.maxWidth,
               height: 24,
               decoration: BoxDecoration(
                 color: Colors.black,
@@ -79,9 +77,7 @@ class _SummonerInfoState extends State<SummonerInfo> {
               height: 10,
             ),
             Container(
-              width: widget.parentConstraints != null
-                  ? 0.23 * widget.parentConstraints!.maxWidth
-                  : 0.23 * MediaQuery.of(context).size.width,
+              width: 0.23 * widget.constraints.maxWidth,
               height: 18,
               decoration: BoxDecoration(
                 color: Colors.black,
@@ -96,9 +92,8 @@ class _SummonerInfoState extends State<SummonerInfo> {
           children: [
             Container(
               constraints: BoxConstraints(
-                  maxWidth: widget.parentConstraints != null
-                      ? 0.58 * widget.parentConstraints!.maxWidth
-                      : 0.61 * MediaQuery.of(context).size.width),
+                maxWidth: 0.58 * widget.constraints.maxWidth,
+              ),
               child: FittedBox(
                 fit: BoxFit.fitWidth,
                 child: Text(
@@ -132,9 +127,7 @@ class _SummonerInfoState extends State<SummonerInfo> {
       Color rankedTextColor = Theme.of(context).primaryColor;
       Widget rankedText = const Text("");
       Widget lpText = const Text(""), winRateText = const Text("");
-      final double rankMaxWidth = widget.parentConstraints != null
-          ? 0.90 * widget.parentConstraints!.maxWidth
-          : MediaQuery.of(context).size.width;
+      final double rankMaxWidth = 0.90 * widget.constraints.maxWidth;
 
       if (!widget.model.isLoading.value) {
         String tierString =
@@ -252,20 +245,16 @@ class _SummonerInfoState extends State<SummonerInfo> {
       } else {
         return Column(
           children: [
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Container(
-                    width: 0.99 * rankMaxWidth,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      color: Colors.black,
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                  ),
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: Container(
+                width: rankMaxWidth,
+                height: 40,
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(15),
                 ),
-              ],
+              ),
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 10),
@@ -287,9 +276,7 @@ class _SummonerInfoState extends State<SummonerInfo> {
       Color rankedTextColor = Theme.of(context).primaryColor;
       Widget rankedText = const Text("");
       Widget lpText = const Text(""), winRateText = const Text("");
-      final double rankMaxWidth = widget.parentConstraints != null
-          ? 0.90 * widget.parentConstraints!.maxWidth
-          : MediaQuery.of(context).size.width;
+      final double rankMaxWidth = 0.90 * widget.constraints.maxWidth;
 
       if (!widget.model.isLoading.value) {
         String tierString =
@@ -407,20 +394,16 @@ class _SummonerInfoState extends State<SummonerInfo> {
       } else {
         return Column(
           children: [
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Container(
-                    width: 0.99 * rankMaxWidth,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      color: Colors.black,
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                  ),
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: Container(
+                width: rankMaxWidth,
+                height: 40,
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(15),
                 ),
-              ],
+              ),
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 10),
