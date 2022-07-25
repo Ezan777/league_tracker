@@ -1,5 +1,6 @@
 import 'package:darthus/darthus.dart';
 import 'package:flutter/material.dart';
+import 'package:league_tracker/views/participant_row.dart';
 
 import '../models/model.dart';
 
@@ -26,17 +27,18 @@ class _FullMatchInfoState extends State<FullMatchInfo> {
       padding: const EdgeInsets.all(12),
       child: Card(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
-          ),
+              borderRadius: BorderRadius.circular(15),
+              side: BorderSide(
+                color: index < 5 ? Colors.blue : Colors.red,
+                width: 1,
+              )),
           child: Padding(
             padding: const EdgeInsets.all(10),
-            child: Row(
-              children: [
-                Container(
-
-                ),
-                Text("${(participant.goldEarned / 1000).toStringAsFixed(1)} k"),
-              ],
+            child: LayoutBuilder(
+              builder: (context, constraints) => ParticipantRow(
+                constraints: constraints,
+                participant: participant,
+              ),
             ),
           )),
     );

@@ -61,6 +61,8 @@ flutter:
     - assets/images/centered_champions/
     - assets/images/items/
     - assets/images/profile_icon/
+    - assets/images/champions_tiles/
+    - assets/icons/
 
   # To add assets to your application, add an assets section, like this:
   # assets:
