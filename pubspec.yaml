@@ -62,7 +62,9 @@ flutter:
     - assets/images/items/
     - assets/images/profile_icon/
     - assets/images/champions_tiles/
+    - assets/images/spells/
     - assets/icons/
+    - assets/json/summoner.json
 
   # To add assets to your application, add an assets section, like this:
   # assets:

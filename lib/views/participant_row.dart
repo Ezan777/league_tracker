@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:darthus/darthus.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class ParticipantRow extends StatefulWidget {
   final FinishedParticipant participant;
@@ -14,8 +17,27 @@ class ParticipantRow extends StatefulWidget {
 }
 
 class _ParticipantRowState extends State<ParticipantRow> {
+  Future<String> summonerSpell1Name() async {
+    final jsonFile = await rootBundle.loadString("assets/json/summoner.json");
+    final data = jsonDecode(jsonFile)["data"]
+        .map((String key, spell) => MapEntry(spell["key"], spell["id"]));
+
+    return data[widget.participant.summonerSpells[0].toString()];
+  }
+
+  Future<String> summonerSpell2Name() async {
+    final jsonFile = await rootBundle.loadString("assets/json/summoner.json");
+    final data = jsonDecode(jsonFile)["data"]
+        .map((String key, spell) => MapEntry(spell["key"], spell["id"]));
+
+    return data[widget.participant.summonerSpells[1].toString()];
+  }
+
   @override
   Widget build(BuildContext context) {
+    final summonerSpell1 = summonerSpell1Name();
+    final summonerSpell2 = summonerSpell2Name();
+
     return Container(
       constraints: BoxConstraints(maxWidth: widget.constraints.maxWidth),
       child: FittedBox(
@@ -24,7 +46,7 @@ class _ParticipantRowState extends State<ParticipantRow> {
           children: [
             // Champion Tile
             Padding(
-              padding: const EdgeInsets.all(5),
+              padding: const EdgeInsets.all(3),
               child: SizedBox(
                 width: 0.24 * widget.constraints.maxWidth,
                 height: 0.25 * widget.constraints.maxWidth,
@@ -75,6 +97,105 @@ class _ParticipantRowState extends State<ParticipantRow> {
               ),
             ),
             Padding(
+              padding: const EdgeInsets.all(2),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Summoner name
+                  SizedBox(
+                    width: 0.25 * widget.constraints.maxWidth,
+                    child: Text(
+                      widget.participant.summonerName,
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                            fontSize: 18,
+                          ),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  // Summoner spells
+                  Row(
+                    children: [
+                      // First summoner spell
+                      Padding(
+                        padding: const EdgeInsets.all(2),
+                        child: SizedBox(
+                          width: 0.09 * widget.constraints.maxWidth,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: FutureBuilder(
+                                future: summonerSpell1,
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasData) {
+                                    return Image.asset(
+                                      "assets/images/spells/${snapshot.data}.png",
+                                    );
+                                  } else {
+                                    return Container(
+                                      width: 0.09 * widget.constraints.maxWidth,
+                                      height: 0.09 * widget.constraints.maxWidth,
+                                      decoration: BoxDecoration(
+                                        color: MediaQuery.of(context)
+                                            .platformBrightness ==
+                                            Brightness.light
+                                            ? Colors.grey.shade300
+                                            : Colors.grey.shade700,
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                    );
+                                  }
+                                }),
+                          ),
+                        ),
+                      ),
+                      // Second summoner spell
+                      Padding(
+                        padding: const EdgeInsets.all(2),
+                        child: SizedBox(
+                          width: 0.09 * widget.constraints.maxWidth,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: FutureBuilder(
+                                future: summonerSpell2,
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasData) {
+                                    return Image.asset(
+                                      "assets/images/spells/${snapshot.data}.png",
+                                    );
+                                  } else {
+                                    return Container(
+                                      width: 0.09 * widget.constraints.maxWidth,
+                                      height: 0.09 * widget.constraints.maxWidth,
+                                      decoration: BoxDecoration(
+                                        color: MediaQuery.of(context)
+                                            .platformBrightness ==
+                                            Brightness.light
+                                            ? Colors.grey.shade300
+                                            : Colors.grey.shade700,
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                    );
+                                  }
+                                }),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            // KDA
+            Padding(
+              padding: const EdgeInsets.all(3),
+              child: Text(
+                "${widget.participant.kills}/${widget.participant.deaths}/${widget.participant.assists}",
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                      fontSize: 18,
+                    ),
+              ),
+            ),
+            // Items
+            Padding(
               padding: const EdgeInsets.all(10),
               child: Column(
                 children: [
@@ -83,6 +204,7 @@ class _ParticipantRowState extends State<ParticipantRow> {
                 ],
               ),
             ),
+            // Gold earned
             Text.rich(
               TextSpan(
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
@@ -156,10 +278,12 @@ class _ParticipantRowState extends State<ParticipantRow> {
 
   Widget _boxItemAt(int index) {
     return Container(
-      width: 0.1 * widget.constraints.maxWidth,
-      height: 0.1 * widget.constraints.maxWidth,
+      width: 0.08 * widget.constraints.maxWidth,
+      height: 0.08 * widget.constraints.maxWidth,
       decoration: BoxDecoration(
-        color: Colors.grey.shade300,
+        color: MediaQuery.of(context).platformBrightness == Brightness.light
+            ? Colors.grey.shade300
+            : Colors.grey.shade700,
         borderRadius: BorderRadius.circular(10),
       ),
       child: ClipRRect(
