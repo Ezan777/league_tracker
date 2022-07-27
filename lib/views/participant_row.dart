@@ -96,6 +96,7 @@ class _ParticipantRowState extends State<ParticipantRow> {
                 ),
               ),
             ),
+            // Summoner's name and spells
             Padding(
               padding: const EdgeInsets.all(2),
               child: Column(
@@ -132,11 +133,12 @@ class _ParticipantRowState extends State<ParticipantRow> {
                                   } else {
                                     return Container(
                                       width: 0.09 * widget.constraints.maxWidth,
-                                      height: 0.09 * widget.constraints.maxWidth,
+                                      height:
+                                          0.09 * widget.constraints.maxWidth,
                                       decoration: BoxDecoration(
                                         color: MediaQuery.of(context)
-                                            .platformBrightness ==
-                                            Brightness.light
+                                                    .platformBrightness ==
+                                                Brightness.light
                                             ? Colors.grey.shade300
                                             : Colors.grey.shade700,
                                         borderRadius: BorderRadius.circular(10),
@@ -164,11 +166,12 @@ class _ParticipantRowState extends State<ParticipantRow> {
                                   } else {
                                     return Container(
                                       width: 0.09 * widget.constraints.maxWidth,
-                                      height: 0.09 * widget.constraints.maxWidth,
+                                      height:
+                                          0.09 * widget.constraints.maxWidth,
                                       decoration: BoxDecoration(
                                         color: MediaQuery.of(context)
-                                            .platformBrightness ==
-                                            Brightness.light
+                                                    .platformBrightness ==
+                                                Brightness.light
                                             ? Colors.grey.shade300
                                             : Colors.grey.shade700,
                                         borderRadius: BorderRadius.circular(10),
@@ -184,14 +187,24 @@ class _ParticipantRowState extends State<ParticipantRow> {
                 ],
               ),
             ),
-            // KDA
+            // KDA and CS
             Padding(
               padding: const EdgeInsets.all(3),
-              child: Text(
-                "${widget.participant.kills}/${widget.participant.deaths}/${widget.participant.assists}",
-                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                      fontSize: 18,
-                    ),
+              child: Column(
+                children: [
+                  Text(
+                    "${widget.participant.kills}/${widget.participant.deaths}/${widget.participant.assists}",
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                          fontSize: 18,
+                        ),
+                  ),
+                  Text(
+                    "${widget.participant.minons.toString()} CS",
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                          fontSize: 15,
+                        ),
+                  ),
+                ],
               ),
             ),
             // Items
