@@ -112,8 +112,8 @@ class ParticipantRowState extends State<ParticipantRow> {
                     child: Text(
                       widget.participant.summonerName,
                       style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                        fontSize: 18,
-                      ),
+                            fontSize: 18,
+                          ),
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
@@ -138,11 +138,11 @@ class ParticipantRowState extends State<ParticipantRow> {
                                     return Container(
                                       width: 0.09 * widget.constraints.maxWidth,
                                       height:
-                                      0.09 * widget.constraints.maxWidth,
+                                          0.09 * widget.constraints.maxWidth,
                                       decoration: BoxDecoration(
                                         color: MediaQuery.of(context)
-                                            .platformBrightness ==
-                                            Brightness.light
+                                                    .platformBrightness ==
+                                                Brightness.light
                                             ? Colors.grey.shade300
                                             : Colors.grey.shade700,
                                         borderRadius: BorderRadius.circular(10),
@@ -171,11 +171,11 @@ class ParticipantRowState extends State<ParticipantRow> {
                                     return Container(
                                       width: 0.09 * widget.constraints.maxWidth,
                                       height:
-                                      0.09 * widget.constraints.maxWidth,
+                                          0.09 * widget.constraints.maxWidth,
                                       decoration: BoxDecoration(
                                         color: MediaQuery.of(context)
-                                            .platformBrightness ==
-                                            Brightness.light
+                                                    .platformBrightness ==
+                                                Brightness.light
                                             ? Colors.grey.shade300
                                             : Colors.grey.shade700,
                                         borderRadius: BorderRadius.circular(10),
@@ -199,14 +199,14 @@ class ParticipantRowState extends State<ParticipantRow> {
                   Text(
                     "${widget.participant.kills}/${widget.participant.deaths}/${widget.participant.assists}",
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                      fontSize: 18,
-                    ),
+                          fontSize: 18,
+                        ),
                   ),
                   Text(
                     "${widget.participant.minons.toString()} CS",
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                      fontSize: 15,
-                    ),
+                          fontSize: 15,
+                        ),
                   ),
                 ],
               ),
@@ -225,16 +225,16 @@ class ParticipantRowState extends State<ParticipantRow> {
             Text.rich(
               TextSpan(
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                  fontSize: 18,
-                  color: Colors.yellow.shade800,
-                ),
+                      fontSize: 18,
+                      color: Colors.yellow.shade800,
+                    ),
                 text:
-                "${(widget.participant.goldEarned / 1000).toStringAsFixed(1)} k",
+                    "${(widget.participant.goldEarned / 1000).toStringAsFixed(1)} k",
                 children: [
                   WidgetSpan(
                       child: SizedBox(
-                        width: 0.01 * widget.constraints.maxWidth,
-                      )),
+                    width: 0.01 * widget.constraints.maxWidth,
+                  )),
                   WidgetSpan(
                     child: Icon(
                       Icons.paid_outlined,

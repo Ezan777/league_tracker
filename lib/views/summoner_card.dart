@@ -7,7 +7,8 @@ class SummonerCard extends StatefulWidget {
   final Model model;
   final BoxConstraints constraints;
 
-  const SummonerCard({Key? key, required this.model, required this.constraints}) : super(key: key);
+  const SummonerCard({Key? key, required this.model, required this.constraints})
+      : super(key: key);
 
   @override
   State<SummonerCard> createState() => _SummonerCardState();

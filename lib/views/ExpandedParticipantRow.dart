@@ -19,7 +19,9 @@ class _ExpandedParticipantRowState extends ParticipantRowState {
     return Column(
       children: [
         super.buildRow(),
-        const SizedBox(height: 5,),
+        const SizedBox(
+          height: 5,
+        ),
         Container(
           constraints: BoxConstraints(maxWidth: widget.constraints.maxWidth),
           child: FittedBox(

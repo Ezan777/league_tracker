@@ -9,37 +9,45 @@ class MainView extends StatefulWidget {
   final Model model;
   final BoxConstraints constraints;
 
-  const MainView({Key? key, required this.model, required this.constraints}) : super(key: key);
+  const MainView({Key? key, required this.model, required this.constraints})
+      : super(key: key);
 
   @override
   State<MainView> createState() => _MainViewState();
 }
 
 class _MainViewState extends State<MainView> {
-
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         AnimatedBuilder(
-            animation: widget.model.showSearchBar,
-            builder: (BuildContext context, Widget? child) {
-              return AnimatedSwitcher(
-                transitionBuilder: (Widget child, Animation<double> animation) => ScaleTransition(
-                  scale: animation,
-                  child: child,
-                ),
-                duration: const Duration(milliseconds: 200),
-                child: widget.model.showSearchBar.value ? Column(
-                  children: [
-                    SizedBox(height: widget.model.showSearchBar.value ? 20 : 0),
-                    SearchBar(model: widget.model, constraints: widget.constraints,),
-                    SizedBox(height: widget.model.showSearchBar.value ? 20 : 0),
-                  ],
-                )
-                : const SizedBox(),
-              );
-            }),
+          animation: widget.model.showSearchBar,
+          builder: (BuildContext context, Widget? child) {
+            return AnimatedSwitcher(
+              transitionBuilder: (Widget child, Animation<double> animation) =>
+                  ScaleTransition(
+                scale: animation,
+                child: child,
+              ),
+              duration: const Duration(milliseconds: 200),
+              child: widget.model.showSearchBar.value
+                  ? Column(
+                      children: [
+                        SizedBox(
+                            height: widget.model.showSearchBar.value ? 20 : 0),
+                        SearchBar(
+                          model: widget.model,
+                          constraints: widget.constraints,
+                        ),
+                        SizedBox(
+                            height: widget.model.showSearchBar.value ? 20 : 0),
+                      ],
+                    )
+                  : const SizedBox(),
+            );
+          },
+        ),
         AnimatedBuilder(
           animation: widget.model.isLoading,
           builder: (BuildContext context, Widget? child) {

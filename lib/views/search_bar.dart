@@ -70,7 +70,7 @@ class _SearchBarState extends State<SearchBar> {
 
   @override
   Widget build(BuildContext context) {
-    if(widget._model.showSearchBar.value) {
+    if (widget._model.showSearchBar.value) {
       final bool isLargeScreen = widget.constraints.maxWidth > 600;
       final double portraitsMultiplicative, landscapeMultiplicative;
 
