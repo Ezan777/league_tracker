@@ -38,11 +38,12 @@ class _MatchCardState extends State<MatchCard> {
           child: Card(
             clipBehavior: Clip.antiAliasWithSaveLayer,
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15),
-                side: BorderSide(
-                  color: participant.isWinner ? Colors.green : Colors.red,
-                  width: 2,
-                )),
+              borderRadius: BorderRadius.circular(15),
+              side: BorderSide(
+                color: participant.isWinner ? Colors.green : Colors.red,
+                width: 2,
+              ),
+            ),
             child: Stack(
               children: [
                 cardBackground,

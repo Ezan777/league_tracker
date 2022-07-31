@@ -6,6 +6,7 @@ import '../api_key.dart';
 
 class Model {
   ValueNotifier<bool> isLoading, showRankedFlex, buildingMatches, showSearchBar;
+  List<ValueNotifier<bool>> isExpanded;
   bool _isSummonerInitialized;
   String searchedText;
   LolServers server;
@@ -18,7 +19,8 @@ class Model {
         server = LolServers.euw1,
         showRankedFlex = ValueNotifier<bool>(false),
         buildingMatches = ValueNotifier<bool>(false),
-        showSearchBar = ValueNotifier<bool>(true) {
+        showSearchBar = ValueNotifier<bool>(true),
+        isExpanded = List.generate(10, (_) => ValueNotifier<bool>(false)) {
     ApiRequest.setApiKey(key: myApiKey);
   }
 

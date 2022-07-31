@@ -52,7 +52,6 @@ class _MainViewState extends State<MainView> {
             );
           },
         ),
-        //const SizedBox(height: 15,),
         Expanded(
           child: CustomScrollView(
             slivers: [

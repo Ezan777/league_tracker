@@ -1,5 +1,6 @@
 import 'package:darthus/darthus.dart';
 import 'package:flutter/material.dart';
+import 'package:league_tracker/views/ExpandedParticipantRow.dart';
 import 'package:league_tracker/views/participant_row.dart';
 
 import '../models/model.dart';
@@ -23,24 +24,40 @@ class _FullMatchInfoState extends State<FullMatchInfo> {
         : (widget.model.summoner.allMatches[widget.index].redSideTeam
             .participants()[index - 5] as FinishedParticipant);
 
-    return Padding(
-      padding: const EdgeInsets.all(12),
-      child: Card(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
-              side: BorderSide(
-                color: index < 5 ? Colors.blue : Colors.red,
-                width: 1,
-              )),
-          child: Padding(
-            padding: const EdgeInsets.all(10),
-            child: LayoutBuilder(
-              builder: (context, constraints) => ParticipantRow(
-                constraints: constraints,
-                participant: participant,
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 200),
+      child: Padding(
+        padding: const EdgeInsets.all(12),
+        child: GestureDetector(
+          onTap: () {
+            widget.model.isExpanded[index].value =
+                !widget.model.isExpanded[index].value;
+          },
+          child: Card(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
+                side: BorderSide(
+                  color: index < 5 ? Colors.blue : Colors.red,
+                  width: 1,
+                )),
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: LayoutBuilder(
+                builder: (context, constraints) =>
+                    widget.model.isExpanded[index].value
+                        ? ExpandedParticipantRow(
+                            participant: participant,
+                            constraints: constraints,
+                          )
+                        : ParticipantRow(
+                            constraints: constraints,
+                            participant: participant,
+                          ),
               ),
             ),
-          )),
+          ),
+        ),
+      ),
     );
   }
 
@@ -49,7 +66,12 @@ class _FullMatchInfoState extends State<FullMatchInfo> {
       slivers: <Widget>[
         SliverList(
           delegate: SliverChildBuilderDelegate(
-            (context, index) => _buildParticipantInfoAt(index),
+            (context, index) => AnimatedBuilder(
+              animation: widget.model.isExpanded[index],
+              builder: (context, child) {
+                return _buildParticipantInfoAt(index);
+              },
+            ),
             childCount: 10,
           ),
         ),
