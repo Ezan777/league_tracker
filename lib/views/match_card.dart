@@ -34,7 +34,7 @@ class _MatchCardState extends State<MatchCard> {
               builder: (context) => FullMatchInfo(
                     model: widget.model,
                     index: widget.index,
-                  ))),
+                  ))).then((object) {for(var element in widget.model.isExpanded) {element.value = false;}}),
           child: Card(
             clipBehavior: Clip.antiAliasWithSaveLayer,
             shape: RoundedRectangleBorder(
