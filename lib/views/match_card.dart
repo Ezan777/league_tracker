@@ -30,11 +30,18 @@ class _MatchCardState extends State<MatchCard> {
         final cardBackground = Image.asset(
             "assets/images/centered_champions/${participant.championInfo["championName"]}_0.jpg");
         return GestureDetector(
-          onTap: () => Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => FullMatchInfo(
-                    model: widget.model,
-                    index: widget.index,
-                  ))).then((object) {for(var element in widget.model.isExpanded) {element.value = false;}}),
+          onTap: () => Navigator.of(context)
+              .push(MaterialPageRoute(
+                  builder: (context) => FullMatchInfo(
+                        model: widget.model,
+                        index: widget.index,
+                      )))
+              .then((object) {
+            for (var element in widget.model.isExpanded) {
+              element.value = false;
+            }
+            widget.model.resetMatchMaxDamages();
+          }),
           child: Card(
             clipBehavior: Clip.antiAliasWithSaveLayer,
             shape: RoundedRectangleBorder(

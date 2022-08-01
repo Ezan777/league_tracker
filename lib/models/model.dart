@@ -10,6 +10,9 @@ class Model {
   bool _isSummonerInitialized;
   String searchedText;
   LolServers server;
+  int matchMaxDamageToChampions,
+      matchMaxDamageToObjectives,
+      matchMaxDamageTaken;
   late Summoner summoner;
 
   Model()
@@ -20,6 +23,9 @@ class Model {
         showRankedFlex = ValueNotifier<bool>(false),
         buildingMatches = ValueNotifier<bool>(false),
         showSearchBar = ValueNotifier<bool>(true),
+        matchMaxDamageToChampions = 0,
+        matchMaxDamageToObjectives = 0,
+        matchMaxDamageTaken = 0,
         isExpanded = List.generate(10, (_) => ValueNotifier<bool>(false)) {
     ApiRequest.setApiKey(key: myApiKey);
   }
@@ -57,6 +63,12 @@ class Model {
       }
     }
     buildingMatches.value = false;
+  }
+
+  void resetMatchMaxDamages() {
+    matchMaxDamageTaken = 0;
+    matchMaxDamageToObjectives = 0;
+    matchMaxDamageToChampions = 0;
   }
 
   bool get isSummonerInitialized => _isSummonerInitialized;

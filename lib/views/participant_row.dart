@@ -3,13 +3,18 @@ import 'dart:convert';
 import 'package:darthus/darthus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:league_tracker/models/model.dart';
 
 class ParticipantRow extends StatefulWidget {
   final FinishedParticipant participant;
   final BoxConstraints constraints;
+  final Model model;
 
   const ParticipantRow(
-      {Key? key, required this.participant, required this.constraints})
+      {Key? key,
+      required this.participant,
+      required this.constraints,
+      required this.model})
       : super(key: key);
 
   @override

@@ -35,11 +35,12 @@ class _FullMatchInfoState extends State<FullMatchInfo> {
           },
           child: Card(
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15),
-                side: BorderSide(
-                  color: index < 5 ? Colors.blue : Colors.red,
-                  width: 1,
-                )),
+              borderRadius: BorderRadius.circular(15),
+              side: BorderSide(
+                color: index < 5 ? Colors.blue : Colors.red,
+                width: 1,
+              ),
+            ),
             child: Padding(
               padding: const EdgeInsets.all(10),
               child: LayoutBuilder(
@@ -48,10 +49,12 @@ class _FullMatchInfoState extends State<FullMatchInfo> {
                         ? ExpandedParticipantRow(
                             participant: participant,
                             constraints: constraints,
+                            model: widget.model,
                           )
                         : ParticipantRow(
                             constraints: constraints,
                             participant: participant,
+                            model: widget.model,
                           ),
               ),
             ),
@@ -81,6 +84,17 @@ class _FullMatchInfoState extends State<FullMatchInfo> {
 
   @override
   Widget build(BuildContext context) {
+    widget.model.matchMaxDamageToChampions = widget
+        .model.summoner.allMatches[widget.index]
+        .maxDamageDealtToChampions();
+
+    widget.model.matchMaxDamageToObjectives = widget
+        .model.summoner.allMatches[widget.index]
+        .maxDamageDealtToObjectives();
+
+    widget.model.matchMaxDamageTaken =
+        widget.model.summoner.allMatches[widget.index].maxDamageTaken();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("League Tracker"),
