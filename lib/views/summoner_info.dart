@@ -44,7 +44,7 @@ class _SummonerInfoState extends State<SummonerInfo> {
             height: 0.295 * widget.constraints.maxWidth,
             decoration: BoxDecoration(
               border: Border.all(
-                color: Theme.of(context).primaryColor,
+                color: Theme.of(context).colorScheme.onSecondaryContainer,
                 width: 2,
               ),
               shape: BoxShape.circle,
@@ -99,12 +99,11 @@ class _SummonerInfoState extends State<SummonerInfo> {
                 child: Text(
                   "${widget.model.summoner.summonerName[0].toUpperCase()}${widget.model.summoner.summonerName.substring(1)}",
                   style: Theme.of(context).textTheme.headline3!.copyWith(
-                      fontSize: 40,
-                      fontWeight: FontWeight.bold,
-                      color: MediaQuery.of(context).platformBrightness ==
-                              Brightness.dark
-                          ? Theme.of(context).textTheme.headline3!.color
-                          : Theme.of(context).primaryColor),
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold,
+                        color:
+                            Theme.of(context).colorScheme.onSecondaryContainer,
+                      ),
                 ),
               ),
             ),
@@ -113,10 +112,9 @@ class _SummonerInfoState extends State<SummonerInfo> {
             ),
             Text(
               "Level: ${widget.model.summoner.summonerLevel}",
-              style: Theme.of(context)
-                  .textTheme
-                  .headlineSmall!
-                  .copyWith(fontSize: 20),
+              style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                  fontSize: 20,
+                  color: Theme.of(context).colorScheme.onSecondaryContainer),
             ),
           ],
         );
@@ -124,8 +122,7 @@ class _SummonerInfoState extends State<SummonerInfo> {
     }
 
     Widget _buildRankedSoloDuoInfo() {
-      Color rankedTextColor = Theme.of(context).primaryColor;
-      Widget rankedText = const Text("");
+      Color rankedTextColor = Theme.of(context).colorScheme.onSecondaryContainer;
       Widget lpText = const Text(""), winRateText = const Text("");
       final double rankMaxWidth = 0.90 * widget.constraints.maxWidth;
 
@@ -139,71 +136,35 @@ class _SummonerInfoState extends State<SummonerInfo> {
             ? ": ${widget.model.summoner.rankSoloDuo!.lp} LP"
             : "";
         if (widget.model.summoner.rankSoloDuo != null) {
-          switch (widget.model.summoner.rankSoloDuo!.tier.toLowerCase()) {
-            case ("iron"):
-              MediaQuery.of(context).platformBrightness == Brightness.light
-                  ? rankedTextColor = Colors.grey.shade800
-                  : rankedTextColor = Colors.grey;
-              break;
-            case ("bronze"):
-              MediaQuery.of(context).platformBrightness == Brightness.light
-                  ? rankedTextColor = Colors.brown
-                  : rankedTextColor = Colors.brown.shade300;
-              break;
-            case ("silver"):
-              MediaQuery.of(context).platformBrightness == Brightness.light
-                  ? rankedTextColor = Colors.grey.shade600
-                  : rankedTextColor = Colors.grey.shade400;
-              break;
-            case ("gold"):
-              MediaQuery.of(context).platformBrightness == Brightness.light
-                  ? rankedTextColor = Colors.lime.shade800
-                  : rankedTextColor = Colors.lime.shade600;
-              break;
-            case ("platinum"):
-              MediaQuery.of(context).platformBrightness == Brightness.light
-                  ? rankedTextColor = Colors.teal
-                  : rankedTextColor = Colors.teal.shade400;
-              break;
-            case ("diamond"):
-              MediaQuery.of(context).platformBrightness == Brightness.light
-                  ? rankedTextColor = Colors.blue.shade700
-                  : rankedTextColor = Colors.blue;
-              break;
+          switch (widget.model.summoner.rankFlex!.tier.toLowerCase()) {
             case ("master"):
-              MediaQuery.of(context).platformBrightness == Brightness.light
-                  ? rankedTextColor = Colors.purple.shade700
-                  : rankedTextColor = Colors.purple.shade400;
               rankString = "";
               break;
             case ("grandmaster"):
-              MediaQuery.of(context).platformBrightness == Brightness.light
-                  ? rankedTextColor = Colors.red.shade600
-                  : rankedTextColor = Colors.redAccent.shade400;
               rankString = "";
               break;
             case ("challenger"):
-              MediaQuery.of(context).platformBrightness == Brightness.light
-                  ? rankedTextColor = Colors.amber.shade600
-                  : rankedTextColor = Colors.amber;
               rankString = "";
+              break;
           }
         }
 
-        rankedText = Text(
+        rankedTextColor = Theme.of(context).colorScheme.onSecondaryContainer;
+
+        final rankedText = Text(
           "$tierString$rankString",
           style: Theme.of(context).textTheme.headline3!.copyWith(
-                fontWeight: FontWeight.bold,
-                color: rankedTextColor,
-              ),
+            fontWeight: FontWeight.bold,
+            color: rankedTextColor,
+          ),
         );
 
         lpText = Text(
           lpString,
           style: Theme.of(context).textTheme.headline3!.copyWith(
-                fontWeight: FontWeight.bold,
-                color: rankedTextColor,
-              ),
+            fontWeight: FontWeight.bold,
+            color: rankedTextColor,
+          ),
         );
 
         winRateText = Text(
@@ -273,8 +234,7 @@ class _SummonerInfoState extends State<SummonerInfo> {
     }
 
     Widget _buildRankedFlexInfo() {
-      Color rankedTextColor = Theme.of(context).primaryColor;
-      Widget rankedText = const Text("");
+      Color rankedTextColor = Theme.of(context).colorScheme.onSecondaryContainer;
       Widget lpText = const Text(""), winRateText = const Text("");
       final double rankMaxWidth = 0.90 * widget.constraints.maxWidth;
 
@@ -289,57 +249,19 @@ class _SummonerInfoState extends State<SummonerInfo> {
             : "";
         if (widget.model.summoner.rankFlex != null) {
           switch (widget.model.summoner.rankFlex!.tier.toLowerCase()) {
-            case ("iron"):
-              MediaQuery.of(context).platformBrightness == Brightness.light
-                  ? rankedTextColor = Colors.grey.shade800
-                  : rankedTextColor = Colors.grey;
-              break;
-            case ("bronze"):
-              MediaQuery.of(context).platformBrightness == Brightness.light
-                  ? rankedTextColor = Colors.brown
-                  : rankedTextColor = Colors.brown.shade300;
-              break;
-            case ("silver"):
-              MediaQuery.of(context).platformBrightness == Brightness.light
-                  ? rankedTextColor = Colors.grey.shade600
-                  : rankedTextColor = Colors.grey.shade400;
-              break;
-            case ("gold"):
-              MediaQuery.of(context).platformBrightness == Brightness.light
-                  ? rankedTextColor = Colors.lime.shade800
-                  : rankedTextColor = Colors.lime.shade600;
-              break;
-            case ("platinum"):
-              MediaQuery.of(context).platformBrightness == Brightness.light
-                  ? rankedTextColor = Colors.teal
-                  : rankedTextColor = Colors.teal.shade400;
-              break;
-            case ("diamond"):
-              MediaQuery.of(context).platformBrightness == Brightness.light
-                  ? rankedTextColor = Colors.blue.shade700
-                  : rankedTextColor = Colors.blue;
-              break;
             case ("master"):
-              MediaQuery.of(context).platformBrightness == Brightness.light
-                  ? rankedTextColor = Colors.purple.shade700
-                  : rankedTextColor = Colors.purple.shade400;
               rankString = "";
               break;
             case ("grandmaster"):
-              MediaQuery.of(context).platformBrightness == Brightness.light
-                  ? rankedTextColor = Colors.red.shade600
-                  : rankedTextColor = Colors.redAccent.shade400;
               rankString = "";
               break;
             case ("challenger"):
-              MediaQuery.of(context).platformBrightness == Brightness.light
-                  ? rankedTextColor = Colors.amber.shade600
-                  : rankedTextColor = Colors.amber;
               rankString = "";
+              break;
           }
         }
 
-        rankedText = Text(
+        final rankedText = Text(
           "$tierString$rankString",
           style: Theme.of(context).textTheme.headline3!.copyWith(
                 fontWeight: FontWeight.bold,

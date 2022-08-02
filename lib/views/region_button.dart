@@ -36,34 +36,96 @@ class _RegionButtonState extends State<RegionButton> {
 
   @override
   Widget build(BuildContext context) {
+    final textStyle = Theme.of(context).textTheme.titleMedium!.copyWith(
+          color: Theme.of(context).colorScheme.onTertiaryContainer,
+        );
+
     return PopupMenuButton(
         itemBuilder: (BuildContext context) => <PopupMenuEntry<LolServers>>[
-              const PopupMenuItem(value: LolServers.na1, child: Text("NA")),
-              const PopupMenuItem(value: LolServers.euw1, child: Text("EUW")),
-              const PopupMenuItem(value: LolServers.eun1, child: Text("EUN")),
-              const PopupMenuItem(value: LolServers.kr, child: Text("KR")),
-              const PopupMenuItem(value: LolServers.br1, child: Text("BR")),
-              const PopupMenuItem(value: LolServers.jp1, child: Text("JP")),
-              const PopupMenuItem(value: LolServers.ru1, child: Text("RU")),
-              const PopupMenuItem(value: LolServers.oce, child: Text("OCE")),
-              const PopupMenuItem(value: LolServers.tr1, child: Text("TR")),
-              const PopupMenuItem(value: LolServers.la1, child: Text("LAN")),
-              const PopupMenuItem(value: LolServers.la2, child: Text("LAS")),
+              PopupMenuItem(
+                  value: LolServers.na1,
+                  child: Text(
+                    "NA",
+                    style: textStyle,
+                  )),
+              PopupMenuItem(
+                  value: LolServers.euw1,
+                  child: Text(
+                    "EUW",
+                    style: textStyle,
+                  )),
+              PopupMenuItem(
+                  value: LolServers.eun1,
+                  child: Text(
+                    "EUN",
+                    style: textStyle,
+                  )),
+              PopupMenuItem(
+                  value: LolServers.kr,
+                  child: Text(
+                    "KR",
+                    style: textStyle,
+                  )),
+              PopupMenuItem(
+                  value: LolServers.br1,
+                  child: Text(
+                    "BR",
+                    style: textStyle,
+                  )),
+              PopupMenuItem(
+                  value: LolServers.jp1,
+                  child: Text(
+                    "JP",
+                    style: textStyle,
+                  )),
+              PopupMenuItem(
+                  value: LolServers.ru1,
+                  child: Text(
+                    "RU",
+                    style: textStyle,
+                  )),
+              PopupMenuItem(
+                  value: LolServers.oce,
+                  child: Text(
+                    "OCE",
+                    style: textStyle,
+                  )),
+              PopupMenuItem(
+                  value: LolServers.tr1,
+                  child: Text(
+                    "TR",
+                    style: textStyle,
+                  )),
+              PopupMenuItem(
+                  value: LolServers.la1,
+                  child: Text(
+                    "LAN",
+                    style: textStyle,
+                  )),
+              PopupMenuItem(
+                  value: LolServers.la2,
+                  child: Text(
+                    "LAS",
+                    style: textStyle,
+                  )),
             ],
         onSelected: _select,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(9)),
         ),
-        color: Theme.of(context).popupMenuTheme.color,
+        color: Theme.of(context).colorScheme.tertiaryContainer,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(8),
           child: Container(
-            color: Theme.of(context).buttonTheme.colorScheme!.background,
+            color: Theme.of(context).colorScheme.secondaryContainer,
             height: 40,
             width: 55,
             child: Center(
               child: Text(_serverRegion[widget._model.server]!,
-                  style: Theme.of(context).textTheme.bodyLarge),
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        color:
+                            Theme.of(context).colorScheme.onSecondaryContainer,
+                      )),
             ),
           ),
         ));
