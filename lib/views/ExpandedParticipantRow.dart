@@ -77,12 +77,48 @@ class _ExpandedParticipantRowState extends ParticipantRowState {
                     ],
                   ),
                 ),
-                // Total damage taken Text
+                // Total damage to objectives Text
                 Padding(
                   padding: detailsPadding,
                   child: Text(
-                    "Total damage taken: ${widget.participant.totalDamageTaken}",
+                    "Total damage dealt to objectives:",
                     style: damageTextStyle,
+                  ),
+                ),
+                // Total damage to objectives bar
+                Padding(
+                  padding: detailsPadding,
+                  child: Row(
+                    children: [
+                      Stack(
+                        children: [
+                          Container(
+                            width: 0.4 * MediaQuery.of(context).size.width,
+                            height: 0.03 * MediaQuery.of(context).size.width,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: MediaQuery.of(context).platformBrightness ==
+                                  Brightness.light
+                                  ? Colors.grey.shade300
+                                  : Colors.grey.shade700,
+                            ),
+                          ),
+                          Container(
+                            width: (widget.participant.damageDealtToObjectives / widget.model.matchMaxDamageToObjectives) * (0.4 * MediaQuery.of(context).size.width),
+                            height: 0.03 * MediaQuery.of(context).size.width,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.cyan,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(width: 0.04 * MediaQuery.of(context).size.width,),
+                      Text(
+                        "${widget.participant.damageDealtToObjectives} k",
+                        style: damageTextStyle,
+                      ),
+                    ],
                   ),
                 ),
                 // Vision score
