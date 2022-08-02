@@ -58,12 +58,14 @@ class _RegionButtonState extends State<RegionButton> {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(8),
           child: Container(
-            color: Theme.of(context).buttonTheme.colorScheme!.background,
+            color: Theme.of(context).colorScheme.primaryContainer,
             height: 40,
             width: 55,
             child: Center(
               child: Text(_serverRegion[widget._model.server]!,
-                  style: Theme.of(context).textTheme.bodyLarge),
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                    color: Theme.of(context).colorScheme.onPrimaryContainer,
+                  )),
             ),
           ),
         ));

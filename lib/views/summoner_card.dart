@@ -22,7 +22,7 @@ class _SummonerCardState extends State<SummonerCard> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
           side: BorderSide(
-            color: Theme.of(context).primaryColor,
+            color: Theme.of(context).colorScheme.primary,
             width: 2,
           ),
         ),
