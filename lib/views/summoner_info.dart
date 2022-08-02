@@ -44,7 +44,7 @@ class _SummonerInfoState extends State<SummonerInfo> {
             height: 0.295 * widget.constraints.maxWidth,
             decoration: BoxDecoration(
               border: Border.all(
-                color: Theme.of(context).colorScheme.primary,
+                color: Theme.of(context).colorScheme.onSecondaryContainer,
                 width: 2,
               ),
               shape: BoxShape.circle,
@@ -101,7 +101,7 @@ class _SummonerInfoState extends State<SummonerInfo> {
                   style: Theme.of(context).textTheme.headline3!.copyWith(
                         fontSize: 40,
                         fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.primary,
+                        color: Theme.of(context).colorScheme.onSecondaryContainer,
                       ),
                 ),
               ),
@@ -114,7 +114,7 @@ class _SummonerInfoState extends State<SummonerInfo> {
               style: Theme.of(context)
                   .textTheme
                   .headlineSmall!
-                  .copyWith(fontSize: 20),
+                  .copyWith(fontSize: 20, color: Theme.of(context).colorScheme.onSecondaryContainer),
             ),
           ],
         );

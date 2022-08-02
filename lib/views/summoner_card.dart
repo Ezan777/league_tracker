@@ -19,10 +19,11 @@ class _SummonerCardState extends State<SummonerCard> {
   Widget build(BuildContext context) {
     if (widget.model.isSummonerInitialized) {
       return Card(
+        color: Theme.of(context).colorScheme.secondaryContainer,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
           side: BorderSide(
-            color: Theme.of(context).colorScheme.primary,
+            color: Theme.of(context).colorScheme.onSecondaryContainer,
             width: 2,
           ),
         ),

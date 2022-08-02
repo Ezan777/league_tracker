@@ -14,8 +14,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final ThemeData lightBase = ThemeData.light();
-    final ThemeData darkBase = ThemeData.dark();
+    final ThemeData lightBase = ThemeData(
+      brightness: Brightness.light,
+      colorSchemeSeed: Colors.greenAccent,
+    );
+    final ThemeData darkBase = ThemeData(
+      brightness: Brightness.dark,
+      colorSchemeSeed: Colors.greenAccent,
+    );
 
     return DynamicColorBuilder(
       builder: (lightDynamic, darkDynamic) {
