@@ -108,7 +108,7 @@ class _ExpandedParticipantRowState extends ParticipantRowState {
                             height: 0.03 * MediaQuery.of(context).size.width,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
-                              color: Colors.cyan,
+                              color: Colors.cyan.shade400,
                             ),
                           ),
                         ],
@@ -128,7 +128,7 @@ class _ExpandedParticipantRowState extends ParticipantRowState {
                     children: [
                       const Icon(Icons.visibility_outlined),
                       SizedBox(width: 0.03 * MediaQuery.of(context).size.width,),
-                      Text("7"), /* TODO Need to update darthus to get vision score */
+                      Text("${widget.participant.visionScore}"),
                     ],
                   ),
                 ),

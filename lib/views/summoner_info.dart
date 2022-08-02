@@ -44,7 +44,7 @@ class _SummonerInfoState extends State<SummonerInfo> {
             height: 0.295 * widget.constraints.maxWidth,
             decoration: BoxDecoration(
               border: Border.all(
-                color: Theme.of(context).primaryColor,
+                color: Theme.of(context).colorScheme.primary,
                 width: 2,
               ),
               shape: BoxShape.circle,
@@ -99,12 +99,10 @@ class _SummonerInfoState extends State<SummonerInfo> {
                 child: Text(
                   "${widget.model.summoner.summonerName[0].toUpperCase()}${widget.model.summoner.summonerName.substring(1)}",
                   style: Theme.of(context).textTheme.headline3!.copyWith(
-                      fontSize: 40,
-                      fontWeight: FontWeight.bold,
-                      color: MediaQuery.of(context).platformBrightness ==
-                              Brightness.dark
-                          ? Theme.of(context).textTheme.headline3!.color
-                          : Theme.of(context).primaryColor),
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
                 ),
               ),
             ),

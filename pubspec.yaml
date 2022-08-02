@@ -29,7 +29,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  darthus: ^1.0.0
+  darthus: ^1.2.0
+  dynamic_color: ^1.4.0
 
 
   # The following adds the Cupertino Icons font to your application.
