@@ -31,11 +31,24 @@ class _MatchCardState extends State<MatchCard> {
             "assets/images/centered_champions/${participant.championInfo["championName"]}_0.jpg");
         return GestureDetector(
           onTap: () => Navigator.of(context)
-              .push(MaterialPageRoute(
-                  builder: (context) => FullMatchInfo(
-                        model: widget.model,
-                        index: widget.index,
-                      )))
+              .push(
+            PageRouteBuilder(
+              pageBuilder: (context, animation, secondaryAnimation) => FullMatchInfo(
+                model: widget.model,
+                index: widget.index,
+              ),
+              transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                const begin = Offset(1.0, 0.0);
+                const end = Offset.zero;
+                const curve = Curves.ease;
+
+                var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+                return SlideTransition(position: animation.drive(tween), child: child,);
+              },
+              transitionDuration: const Duration(milliseconds: 900),
+            ),
+          )
               .then((object) {
             for (var element in widget.model.isExpanded) {
               element.value = false;
