@@ -32,6 +32,7 @@ class Model {
 
   /// This function is going to build the summoner with 20 games in matchHistory
   Future<void> buildSummoner() async {
+    isLoading.value = false;
     if (searchedText != "") {
       summoner = Summoner(server.toString().split('.').last, searchedText);
       _isSummonerInitialized = true;
@@ -50,16 +51,18 @@ class Model {
 
   /// Build the given number of matches.
   Future<void> buildMatches({int numberOfMatches = 5}) async {
+    buildingMatches.value = false;
     buildingMatches.value = true;
     for (int i = summoner.allMatches.length; i < numberOfMatches; ++i) {
       try {
         await summoner.buildMatchAt(i);
       } catch (e) {
         buildingMatches.value = false;
-        await Future.delayed(const Duration(seconds: 5));
+        /*await Future.delayed(const Duration(seconds: 5));
         if (i < numberOfMatches) {
           buildMatches(numberOfMatches: numberOfMatches);
-        }
+        }*/
+        rethrow;
       }
     }
     buildingMatches.value = false;

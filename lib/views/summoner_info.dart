@@ -136,7 +136,7 @@ class _SummonerInfoState extends State<SummonerInfo> {
             ? ": ${widget.model.summoner.rankSoloDuo!.lp} LP"
             : "";
         if (widget.model.summoner.rankSoloDuo != null) {
-          switch (widget.model.summoner.rankFlex!.tier.toLowerCase()) {
+          switch (widget.model.summoner.rankSoloDuo!.tier.toLowerCase()) {
             case ("master"):
               rankString = "";
               break;
