@@ -122,7 +122,8 @@ class _SummonerInfoState extends State<SummonerInfo> {
     }
 
     Widget _buildRankedSoloDuoInfo() {
-      Color rankedTextColor = Theme.of(context).colorScheme.onSecondaryContainer;
+      Color rankedTextColor =
+          Theme.of(context).colorScheme.onSecondaryContainer;
       Widget lpText = const Text(""), winRateText = const Text("");
       final double rankMaxWidth = 0.90 * widget.constraints.maxWidth;
 
@@ -154,17 +155,17 @@ class _SummonerInfoState extends State<SummonerInfo> {
         final rankedText = Text(
           "$tierString$rankString",
           style: Theme.of(context).textTheme.headline3!.copyWith(
-            fontWeight: FontWeight.bold,
-            color: rankedTextColor,
-          ),
+                fontWeight: FontWeight.bold,
+                color: rankedTextColor,
+              ),
         );
 
         lpText = Text(
           lpString,
           style: Theme.of(context).textTheme.headline3!.copyWith(
-            fontWeight: FontWeight.bold,
-            color: rankedTextColor,
-          ),
+                fontWeight: FontWeight.bold,
+                color: rankedTextColor,
+              ),
         );
 
         winRateText = Text(
@@ -234,7 +235,8 @@ class _SummonerInfoState extends State<SummonerInfo> {
     }
 
     Widget _buildRankedFlexInfo() {
-      Color rankedTextColor = Theme.of(context).colorScheme.onSecondaryContainer;
+      Color rankedTextColor =
+          Theme.of(context).colorScheme.onSecondaryContainer;
       Widget lpText = const Text(""), winRateText = const Text("");
       final double rankMaxWidth = 0.90 * widget.constraints.maxWidth;
 

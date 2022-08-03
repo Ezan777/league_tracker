@@ -32,7 +32,10 @@ class Model {
 
   /// This function is going to build the summoner with 20 games in matchHistory
   Future<void> buildSummoner() async {
+    // Resetting values in case it's not the first summoner
     isLoading.value = false;
+    _isSummonerInitialized = false;
+    buildingMatches.value = true;
     if (searchedText != "") {
       summoner = Summoner(server.toString().split('.').last, searchedText);
       _isSummonerInitialized = true;
