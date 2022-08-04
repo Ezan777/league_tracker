@@ -18,7 +18,7 @@ class _MatchHistoryState extends State<MatchHistory> {
   Widget build(BuildContext context) {
     return SliverList(
       delegate: SliverChildBuilderDelegate(
-        (BuildContext context, int index) {
+            (BuildContext context, int index) {
           return Padding(
             padding: const EdgeInsets.only(left: 20, right: 20),
             child: ShimmerLoading(

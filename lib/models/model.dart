@@ -3,6 +3,7 @@ import 'package:league_tracker/views/region_button.dart';
 import 'package:darthus/darthus.dart';
 
 import '../api_key.dart';
+import '../redirect_url.dart';
 
 class Model {
   ValueNotifier<bool> isLoading, showRankedFlex, buildingMatches, showSearchBar;
@@ -27,7 +28,7 @@ class Model {
         matchMaxDamageToObjectives = 0,
         matchMaxDamageTaken = 0,
         isExpanded = List.generate(10, (_) => ValueNotifier<bool>(false)) {
-    ApiRequest.setApiKey(key: myApiKey);
+    ApiRequest.setRedirectUrl(url: myRedirectUrl);
   }
 
   /// This function is going to build the summoner with 20 games in matchHistory

@@ -60,16 +60,36 @@ class _MainViewState extends State<MainView> {
             );
           },
         ),
-        Expanded(
-          child: CustomScrollView(
-            slivers: [
-              AnimatedBuilder(
-                  animation: widget.model.buildingMatches,
-                  builder: (BuildContext context, Widget? child) {
-                    return MatchHistory(model: widget.model);
-                  }),
-            ],
-          ),
+        AnimatedBuilder(
+            animation: widget.model.buildingMatches,
+            builder: (context, child) {
+              if(widget.model.buildingMatches.value) {
+                return Expanded(
+                  child: CustomScrollView(
+                    slivers: [
+                      AnimatedBuilder(
+                          animation: widget.model.buildingMatches,
+                          builder: (BuildContext context, Widget? child) {
+                            return MatchHistory(model: widget.model);
+                          }),
+                    ],
+                    physics: const NeverScrollableScrollPhysics(),
+                  ),
+                );
+              } else {
+                return Expanded(
+                  child: CustomScrollView(
+                    slivers: [
+                      AnimatedBuilder(
+                          animation: widget.model.buildingMatches,
+                          builder: (BuildContext context, Widget? child) {
+                            return MatchHistory(model: widget.model);
+                          }),
+                    ],
+                  ),
+                );
+              }
+            },
         ),
       ],
     );
