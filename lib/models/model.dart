@@ -15,6 +15,7 @@ class Model {
       matchMaxDamageToObjectives,
       matchMaxDamageTaken;
   late Summoner summoner;
+  late bool isLargeScreen;
 
   Model()
       : _isSummonerInitialized = false,
@@ -28,6 +29,7 @@ class Model {
         matchMaxDamageToObjectives = 0,
         matchMaxDamageTaken = 0,
         isExpanded = List.generate(10, (_) => ValueNotifier<bool>(false)) {
+    ApiRequest.setApiKey(key: myApiKey);
     ApiRequest.setRedirectUrl(url: myRedirectUrl);
   }
 

@@ -71,17 +71,6 @@ class _SearchBarState extends State<SearchBar> {
   @override
   Widget build(BuildContext context) {
     if (widget._model.showSearchBar.value) {
-      final bool isLargeScreen = widget.constraints.maxWidth > 600;
-      final double portraitsMultiplicative, landscapeMultiplicative;
-
-      if (isLargeScreen) {
-        portraitsMultiplicative = 0.85;
-        landscapeMultiplicative = 0.92;
-      } else {
-        portraitsMultiplicative = 0.78;
-        landscapeMultiplicative = 0.88;
-      }
-
       return Row(
         children: <Widget>[
           const SizedBox(width: 10),
@@ -90,9 +79,7 @@ class _SearchBarState extends State<SearchBar> {
             width: 15,
           ),
           SizedBox(
-            width: MediaQuery.of(context).orientation == Orientation.portrait
-                ? (portraitsMultiplicative) * widget.constraints.maxWidth
-                : (landscapeMultiplicative) * widget.constraints.maxWidth,
+            width: 0.76 * widget.constraints.maxWidth,
             child: TextField(
               decoration: const InputDecoration(
                 labelText: "Summoner's name",

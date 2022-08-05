@@ -17,10 +17,10 @@ class MainView extends StatefulWidget {
 }
 
 class _MainViewState extends State<MainView> {
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildNormalView() {
     return Column(
       children: [
+        // Searchbar
         AnimatedBuilder(
           animation: widget.model.showSearchBar,
           builder: (BuildContext context, Widget? child) {
@@ -48,6 +48,7 @@ class _MainViewState extends State<MainView> {
             );
           },
         ),
+        // Summoner card
         AnimatedBuilder(
           animation: widget.model.isLoading,
           builder: (BuildContext context, Widget? child) {
@@ -60,38 +61,149 @@ class _MainViewState extends State<MainView> {
             );
           },
         ),
+        // Match history
         AnimatedBuilder(
-            animation: widget.model.buildingMatches,
-            builder: (context, child) {
-              if(widget.model.buildingMatches.value) {
-                return Expanded(
-                  child: CustomScrollView(
-                    slivers: [
-                      AnimatedBuilder(
-                          animation: widget.model.buildingMatches,
-                          builder: (BuildContext context, Widget? child) {
-                            return MatchHistory(model: widget.model);
-                          }),
-                    ],
-                    physics: const NeverScrollableScrollPhysics(),
-                  ),
-                );
-              } else {
-                return Expanded(
-                  child: CustomScrollView(
-                    slivers: [
-                      AnimatedBuilder(
-                          animation: widget.model.buildingMatches,
-                          builder: (BuildContext context, Widget? child) {
-                            return MatchHistory(model: widget.model);
-                          }),
-                    ],
-                  ),
-                );
-              }
-            },
+          animation: widget.model.buildingMatches,
+          builder: (context, child) {
+            if (widget.model.buildingMatches.value) {
+              return Expanded(
+                child: CustomScrollView(
+                  slivers: [
+                    AnimatedBuilder(
+                        animation: widget.model.buildingMatches,
+                        builder: (BuildContext context, Widget? child) {
+                          return MatchHistory(model: widget.model);
+                        }),
+                  ],
+                  physics: const NeverScrollableScrollPhysics(),
+                ),
+              );
+            } else {
+              return Expanded(
+                child: CustomScrollView(
+                  slivers: [
+                    AnimatedBuilder(
+                        animation: widget.model.buildingMatches,
+                        builder: (BuildContext context, Widget? child) {
+                          return MatchHistory(model: widget.model);
+                        }),
+                  ],
+                ),
+              );
+            }
+          },
         ),
       ],
     );
+  }
+
+  Widget _buildLargeView() {
+    return Row(
+      children: [
+        ConstrainedBox(
+          constraints: BoxConstraints(
+              maxWidth: 0.45 * MediaQuery.of(context).size.width),
+          child: Column(
+            children: [
+              // Searchbar
+              AnimatedBuilder(
+                animation: widget.model.showSearchBar,
+                builder: (BuildContext context, Widget? child) {
+                  return AnimatedSwitcher(
+                    transitionBuilder:
+                        (Widget child, Animation<double> animation) =>
+                            ScaleTransition(
+                      scale: animation,
+                      child: child,
+                    ),
+                    duration: const Duration(milliseconds: 200),
+                    child: widget.model.showSearchBar.value
+                        ? Column(
+                            children: [
+                              SizedBox(
+                                  height: widget.model.showSearchBar.value
+                                      ? 20
+                                      : 0),
+                              LayoutBuilder(
+                                builder: (context, constraints) => SearchBar(
+                                  model: widget.model,
+                                  constraints: constraints,
+                                ),
+                              ),
+                              SizedBox(
+                                  height: widget.model.showSearchBar.value
+                                      ? 20
+                                      : 0),
+                            ],
+                          )
+                        : const SizedBox(),
+                  );
+                },
+              ),
+              // Summoner card
+              AnimatedBuilder(
+                animation: widget.model.isLoading,
+                builder: (BuildContext context, Widget? child) {
+                  return Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: SummonerCard(
+                      model: widget.model,
+                      constraints: widget.constraints,
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
+        // Match History
+        Expanded(
+          child: Column(
+            children: [
+              AnimatedBuilder(
+                animation: widget.model.buildingMatches,
+                builder: (context, child) {
+                  if (widget.model.buildingMatches.value) {
+                    return Expanded(
+                      child: CustomScrollView(
+                        slivers: [
+                          AnimatedBuilder(
+                              animation: widget.model.buildingMatches,
+                              builder: (BuildContext context, Widget? child) {
+                                return MatchHistory(model: widget.model);
+                              }),
+                        ],
+                        physics: const NeverScrollableScrollPhysics(),
+                      ),
+                    );
+                  } else {
+                    return Expanded(
+                      child: CustomScrollView(
+                        slivers: [
+                          AnimatedBuilder(
+                              animation: widget.model.buildingMatches,
+                              builder: (BuildContext context, Widget? child) {
+                                return MatchHistory(model: widget.model);
+                              }),
+                        ],
+                      ),
+                    );
+                  }
+                },
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (widget.model.isLargeScreen) {
+      return _buildLargeView();
+    } else {
+      return _buildNormalView();
+    }
   }
 }
