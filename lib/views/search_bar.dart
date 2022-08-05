@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:darthus/darthus.dart';
 import 'package:flutter/material.dart';
 import 'package:league_tracker/views/region_button.dart';
@@ -19,52 +21,77 @@ class _SearchBarState extends State<SearchBar> {
   void _submitted(String text) async {
     widget._model.searchedText = text;
     try {
-      widget._model.showSearchBar.value = false;
       await widget._model.buildSummoner();
+      widget._model.showSearchBar.value = false;
     } on DataNotFound {
       showDialog(
-          context: context,
-          builder: (_) => AlertDialog(
-                title: const Text("Data not found"),
-                content: const Text(
-                    "The summoner's name you have inserted does not exist."),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                actions: [
-                  Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: ElevatedButton(
-                      child: const Text("Ok"),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ),
-                ],
-              ));
+        context: context,
+        builder: (_) => AlertDialog(
+          title: const Text("Data not found"),
+          content: const Text(
+              "The summoner's name you have inserted does not exist."),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: ElevatedButton(
+                child: const Text("Ok"),
+                onPressed: () {
+                  Navigator.of(context, rootNavigator: true).pop();
+                },
+              ),
+            ),
+          ],
+        ),
+      );
     } on RateLimitExceeded {
       showDialog(
-          context: context,
-          builder: (_) => AlertDialog(
-                title: const Text("Request rate limit exceeded"),
-                content: const Text(
-                    "There are too many requests, wait a moment and try again please"),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                actions: [
-                  Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: ElevatedButton(
-                      child: const Text("Ok"),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ),
-                ],
-              ));
+        context: context,
+        builder: (_) => AlertDialog(
+          title: const Text("Request rate limit exceeded"),
+          content: const Text(
+              "There are too many requests, wait a moment and try again please"),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: ElevatedButton(
+                child: const Text("Ok"),
+                onPressed: () {
+                  Navigator.of(context, rootNavigator: true).pop();
+                },
+              ),
+            ),
+          ],
+        ),
+      );
+    } on SocketException {
+      showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+          title: const Text("Service unavailable"),
+          content: const Text(
+              "The service is currently unavailable, it could be your internet connection or Riot's servers"),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: ElevatedButton(
+                child: const Text("Ok"),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ),
+          ],
+        ),
+      );
     }
   }
 

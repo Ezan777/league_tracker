@@ -47,9 +47,10 @@ class Model {
         await summoner.buildSummoner();
         isLoading.value = false;
         await buildMatches(numberOfMatches: 20);
-      } catch (e) {
+      } catch(e) {
         _isSummonerInitialized = false;
         isLoading.value = false;
+        buildingMatches.value = false;
         rethrow;
       }
     }
