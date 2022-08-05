@@ -5,6 +5,7 @@ import 'package:league_tracker/views/main_view.dart';
 import 'package:league_tracker/models/model.dart';
 import 'package:league_tracker/animated_shimmer/shimmer.dart';
 import 'firebase_options.dart';
+import 'package:flutter/services.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,7 +14,9 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  runApp(const MyApp());
+  SystemChrome.setPreferredOrientations(
+          [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown])
+      .then((value) => runApp(const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
