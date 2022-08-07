@@ -6,12 +6,17 @@ import 'package:league_tracker/models/model.dart';
 import 'package:league_tracker/animated_shimmer/shimmer.dart';
 import 'firebase_options.dart';
 import 'package:flutter/services.dart';
+import 'package:firebase_app_check/firebase_app_check.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  await FirebaseAppCheck.instance.activate(
+    webRecaptchaSiteKey: 'recaptcha-v3-site-key',
   );
 
   SystemChrome.setPreferredOrientations(
