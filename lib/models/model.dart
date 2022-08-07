@@ -1,3 +1,4 @@
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:league_tracker/views/region_button.dart';
 import 'package:darthus/darthus.dart';
@@ -31,7 +32,12 @@ class Model {
         isExpanded = List.generate(10, (_) => ValueNotifier<bool>(false)) {
     ApiRequest.setApiKey(key: myApiKey);
     ApiRequest.setRedirectUrl(url: myRedirectUrl);
-    ApiRequest.setHttpCallable(callFunction: 'riotApiRequest');
+    ApiRequest.setHttpCallable(callFunction: (riotRequestUrl) async {
+      return (await FirebaseFunctions.instanceFor(region: "europe-west1")
+          .httpsCallable('riotApiRequest')
+          .call(<String, dynamic>{'riotRequest': riotRequestUrl}))
+      .data;
+    });
   }
 
   /// This function is going to build the summoner with 20 games in matchHistory
